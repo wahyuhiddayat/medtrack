@@ -4,8 +4,8 @@ from django.shortcuts import render
 def show_main(request):
     context = {
         'name': 'Wahyu Hidayat',
-        'class': 'PBP A'
-        # nanti tambahin lagi sesuai checklist
+        'class': 'PBP A',
     }
 
-    return render(request, "main.html", context)
+    #return render(request, "main.html", context)
+    return render(request, "main/main.html", context)
