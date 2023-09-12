@@ -4,7 +4,7 @@ Kelas   : PBP A
 
 Adaptable : https://medtrack.adaptable.app
 
-# Step Mengimplementasikan #
+# Step Mengimplementasikan Tugas 2 #
 
 ## Membuat Sebuah Proyek Django Baru ##
 1. Buat direktori baru dengan nama `medtrack`.
@@ -234,3 +234,70 @@ urlpatterns = [
     ...
 ]
 ```
+
+## Membuat Model Pada Aplikasi `main` Dengan Nama `Item` dan Memiliki Atribut ##
+1. Buka berkas `models.py` pada direktori aplikasi `main`.
+2. Isi berkas `models.py` dengan kode berikut.
+```python
+from django.db import models
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)  
+    amount = models.IntegerField()           
+    description = models.TextField()         
+```
+- `name` sebagai nama __item__ dengan tipe `CharField`.
+- `amount` sebagai jumlah __item__ dengan tipe `IntegerField`.
+- `description` sebagai deskripsi __item__ dengan tipe `TextField`.
+
+## Membuat Sebuah Fungsi Pada `views.py` Untuk Dikembalikan ke Dalam Sebuah __Template__ HTML ##
+1. Buka berkas `views.py` yang terletak di dalam berkas aplikasi `main`.
+2. Tambahkan bairs impor berikut di bagian paling atas berkas.
+```python
+from django.shortcuts import render
+```
+3. Tambahkan fungsi `show_main` berikut:
+```python
+def show_main(request):
+    context = {
+        'name': 'Wahyu Hidayat',
+        'class': 'PBP A'
+    }
+
+    return render(request, "main.html", context)
+```
+4. Buat direktori baru bernama `templates` di dalam direktori aplikasi `main`.
+5. Di dalam direktori `templates`, buat berkas baru bernama `main.html` dengan isi sebagai berikut.
+```html
+<h1>Medtrack</h1>
+
+<h5>Name: </h5>
+<p>{{ name }}<p>
+<h5>Class: </h5>
+<p>{{ class }}<p>
+```
+> Sintaks Django {{ name }} dan {{ class }} digunakan untuk menampilkan nilai dari variabel yang telah didefinisikan sebelumnya pada 'show_main'
+
+## __Deployment__ ke Adaptable ##
+1. Login menggunakan GitHub di [Adaptable.io](https://adaptable.io/)
+2. Tekan tombol `New App` lalu pilih `Connect an Existing Repository`.
+3. Hubungkan [Adaptable.io](https://adaptable.io/) dengan GitHub dan pilih `All Repositories` pada proses instalasi.
+4. Pilih repositori proyek `medtrack` sebagai basis aplikasi yang akan di-__deploy__.
+5. Pilih branch `main` sebagai `deployment branch`.
+6. Pilih `Python App Template` sebagai template deployment.
+7. Pilih `PostgreSQL` sebagai tipe basis data yang akan digunakan.
+8. Cek versi Python menggunakan `Terminal`
+```bash
+python3 --version
+Python 3.10.6
+```
+9. Isi 3.10 sebagai versi Python.
+10. Pada bagian `Start Command` masukkan perintah `python manage.py migrate && gunicorn medtrack.wsgi`.
+11. Masukkan `migrate` sebagai nama aplikasi.
+12. Centang bagian `HTTP Listener on PORT` dan klik `Deploy App` untuk memulai proses __deployment__ aplikasi.
+
+## Bagan ## 
+
+## Mengapa __Virtual Environment__ Digunakan ##
+
+## MVC, MVT, MVVM ##
