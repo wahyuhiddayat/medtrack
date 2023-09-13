@@ -313,28 +313,36 @@ def show_main(request):
 ## Mengapa __Virtual Environment__ Digunakan ##
 __Virtual environment__ digunakan karena memiliki kemampuan untuk menjaga isolasi antara __package__ dan __dependencies__ dari aplikasi kita. Ini menghindari potensi konflik dengan versi lain yang mungkin ada di sistem komputer kita. Dengan demikian, kita dapat dengan mudah bekerja pada berbagai proyek yang menggunakan versi berbeda tanpa khawatir mengenai konflik. Selain itu, penggunaan __virtual environment__ membantu dalam manajemen proyek dengan lebih baik. Lebih lanjut, dengan mengizinkan kita untuk menggunakan hanya __package__ dan __library__ yang benar-benar diperlukan, __virtual environment__ juga meningkatkan efisiensi sumber daya proyek kita, menghindari penggunaan yang tidak perlu dari seluruh __library__ yang tersedia.
 
-## MVC, MVT, MVVM ##
-<h3>MVC (Model View Controller)<h3>
-<p>
-Model-View-Controller (MVC) adalah pola arsitektur yang memisahkan sebuah aplikasi menjadi tiga komponen logis utama: model, view, dan controller. Setiap komponen ini dibangun untuk menangani aspek pengembangan yang spesifik dalam sebuah aplikasi. MVC adalah salah satu kerangka kerja pengembangan web standar industri yang paling sering digunakan untuk membuat proyek-proyek yang dapat diukur dan dapat diperluas.
-<ul>Model: Representasi data dan logika bisnis dalam aplikasi. Model mengelola semua operasi yang berkaitan dengan data.</ul>
-<ul>View: Bertanggung jawab untuk menampilkan data kepada pengguna. Ini adalah tampilan grafis atau antarmuka pengguna.</ul>
-<ul>Controller: Menangani interaksi pengguna, menerima input dari pengguna, dan mengarahkan perubahan ke Model atau View yang sesuai.</ul>
-</p>
+# Memahami Pola Arsitektur Perangkat Lunak: MVC, MVT, MVVM
 
-<h3>MVT (Model View Template)<h3>
-<p>
-Django, sebuah framework Python untuk membuat aplikasi web, didasarkan pada arsitektur Model-View-Template (MVT). MVT adalah pola desain perangkat lunak untuk mengembangkan aplikasi web.
-<ul>Model: Serupa dengan konsep Model dalam MVC, mengelola data dan logika bisnis.</ul>
-<ul>View: Bertanggung jawab untuk menampilkan data dan biasanya memiliki elemen-elemen logika tampilan.</ul>
-<ul>emplate: Merupakan bagian yang khas dari kerangka kerja Django. Template adalah file yang mendefinisikan tampilan dan cara data ditempatkan di dalamnya.</ul>
-</p>
+## MVC (Model View Controller)
 
-<h3>MVVM (Model View ViewModul)<h3>
+Model-View-Controller (MVC) adalah pola arsitektur yang memisahkan sebuah aplikasi menjadi tiga komponen logis utama: Model, View, dan Controller. Setiap komponen ini dibangun untuk menangani aspek pengembangan yang spesifik dalam sebuah aplikasi. MVC adalah salah satu kerangka kerja pengembangan web standar industri yang paling sering digunakan untuk membuat proyek-proyek yang dapat diukur dan dapat diperluas.
+
+- **Model**: Representasi data dan logika bisnis dalam aplikasi. Model mengelola semua operasi yang berkaitan dengan data.
+
+- **View**: Bertanggung jawab untuk menampilkan data kepada pengguna. Ini adalah tampilan grafis atau antarmuka pengguna.
+
+- **Controller**: Menangani interaksi pengguna, menerima input dari pengguna, dan mengarahkan perubahan ke Model atau View yang sesuai.
+
+## MVT (Model View Template)
+
+Django, sebuah kerangka kerja Python untuk membuat aplikasi web, didasarkan pada arsitektur Model-View-Template (MVT). MVT adalah pola desain perangkat lunak untuk mengembangkan aplikasi web.
+
+- **Model**: Serupa dengan konsep Model dalam MVC, mengelola data dan logika bisnis.
+
+- **View**: Bertanggung jawab untuk menampilkan data dan biasanya memiliki elemen-elemen logika tampilan.
+
+- **Template**: Merupakan bagian yang khas dari kerangka kerja Django. Template adalah file yang mendefinisikan tampilan dan cara data ditempatkan di dalamnya.
+
+## MVVM (Model View ViewModel)
+
 MVVM adalah pola arsitektur, yang diciptakan oleh arsitek Microsoft Ken Cooper dan Ted Peters. MVVM (Model-View-ViewModel) secara jelas memisahkan logika bisnis sebuah aplikasi dari antarmuka pengguna. Tujuan utama dari arsitektur MVVM adalah membuat tampilan sepenuhnya independen dari logika aplikasi.
-<p>
-<ul>Model: Sama seperti dalam MVC dan MVT, mengelola data dan logika bisnis.</ul>
-<ul>View: Bertanggung jawab untuk menampilkan elemen antarmuka pengguna, tetapi tidak memiliki logika bisnis yang signifikan.</ul>
-<ul>ViewModel: Merupakan perantara antara Model dan View. Ini mengelola tampilan data dan berisi logika yang diperlukan untuk tampilan. ViewModel memungkinkan View untuk tetap terpisah dari Model dan mendorong penggunaan data yang lebih dekat dengan tampilan.</ul>
-</p>
+
+- **Model**: Sama seperti dalam MVC dan MVT, mengelola data dan logika bisnis.
+
+- **View**: Bertanggung jawab untuk menampilkan elemen antarmuka pengguna, tetapi tidak memiliki logika bisnis yang signifikan.
+
+- **ViewModel**: Merupakan perantara antara Model dan View. Ini mengelola tampilan data dan berisi logika yang diperlukan untuk tampilan. ViewModel memungkinkan View untuk tetap terpisah dari Model dan mendorong penggunaan data yang lebih dekat dengan tampilan.
+
 
