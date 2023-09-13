@@ -241,14 +241,20 @@ urlpatterns = [
 ```python
 from django.db import models
 
-class Product(models.Model):
+class Item(models.Model):
     name = models.CharField(max_length=255)  
     amount = models.IntegerField()           
     description = models.TextField()         
+    price = models.IntegerField()            
+    date_added = models.DateField(auto_now_add=True)
+    category = models.TextField()        
 ```
 - `name` sebagai nama __item__ dengan tipe `CharField`.
 - `amount` sebagai jumlah __item__ dengan tipe `IntegerField`.
 - `description` sebagai deskripsi __item__ dengan tipe `TextField`.
+- `price` sebagai harga __item__ dengan tipe `IntegerField`.
+- `date_added` sebagai tanggal __item__ dengan tipe `DateField`.
+- `category` sebagai kategori __item__ dengan tipe `TextField`.
 
 ## Membuat Sebuah Fungsi Pada `views.py` Untuk Dikembalikan ke Dalam Sebuah __Template__ HTML ##
 1. Buka berkas `views.py` yang terletak di dalam berkas aplikasi `main`.
@@ -260,8 +266,13 @@ from django.shortcuts import render
 ```python
 def show_main(request):
     context = {
-        'name': 'Wahyu Hidayat',
-        'class': 'PBP A'
+        'user': 'Wahyu Hidayat',
+        'class': 'PBP A',
+        'name': 'Stethoscope',
+        'category': "Medical Equipment",
+        'amount' : 10,
+        'price' : 2000000,
+        'description': 'A medical tool used by healthcare professionals to listen to internal body sounds such as heartbeats and respiration.'
     }
 
     return render(request, "main.html", context)
@@ -272,11 +283,21 @@ def show_main(request):
 <h1>Medtrack</h1>
 
 <h5>Name: </h5>
-<p>{{ name }}<p>
+<p>{{ user }}</p>
 <h5>Class: </h5>
-<p>{{ class }}<p>
+<p>{{ class }}</p>
+
+<h4>Name: </h4>
+<p>{{ name }}</p>
+<h4>Amount: </h4>
+<p>{{ amount }}</p>
+<h4>Price: </h4>
+<p>Rp.{{ price }}</p>
+<h4>Category: </h4>
+<p>{{ category }}</p>
+<h4>Description: </h4>
+<p>{{ description }}</p>
 ```
-> Sintaks Django {{ name }} dan {{ class }} digunakan untuk menampilkan nilai dari variabel yang telah didefinisikan sebelumnya pada 'show_main'
 
 ## __Deployment__ ke Adaptable ##
 1. Login menggunakan GitHub di [Adaptable.io](https://adaptable.io/)

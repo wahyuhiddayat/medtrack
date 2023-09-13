@@ -13,4 +13,3 @@ def show_main(request):
     }
 
     return render(request, "main.html", context)
-    #return render(request, "main/main.html", context)
