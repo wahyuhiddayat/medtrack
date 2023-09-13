@@ -1,10 +1,10 @@
-Nama    : Wahyu Hidayat<br>
-NPM     : 2201233210<br>
-Kelas   : PBP A
+<h1>Medtrack><h1><br>
 
-Adaptable : https://medtrack.adaptable.app
+<h2>Nama    : Wahyu Hidayat<h2>
+<h2>NPM     : 2201233210<h2><br>
+<h2>Kelas   : PBP A<h2><br>
 
-# Step Mengimplementasikan Tugas 2 #
+<h2>Adaptable : https://medtrack.adaptable.app/main<h2><br>
 
 ## Membuat Sebuah Proyek Django Baru ##
 1. Buat direktori baru dengan nama `medtrack`.
@@ -287,16 +287,22 @@ def show_main(request):
 6. Pilih `Python App Template` sebagai template deployment.
 7. Pilih `PostgreSQL` sebagai tipe basis data yang akan digunakan.
 8. Cek versi Python menggunakan `Terminal`
-```bash
-python3 --version
-Python 3.10.6
-```
+    ```bash
+    python3 --version
+    ```
+    didapat output berikut:
+    ```
+    Python 3.10.6
+    ```
 9. Isi 3.10 sebagai versi Python.
 10. Pada bagian `Start Command` masukkan perintah `python manage.py migrate && gunicorn medtrack.wsgi`.
 11. Masukkan `migrate` sebagai nama aplikasi.
 12. Centang bagian `HTTP Listener on PORT` dan klik `Deploy App` untuk memulai proses __deployment__ aplikasi.
 
-## Bagan ## 
+## Bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html` ## 
+
+![bagan client ke web berbasis django dan responnya](https://github.com/wahyuhiddayat/medtrack/blob/main/DjangoMVTArchitecture.png)
+
 
 ## Mengapa __Virtual Environment__ Digunakan ##
 
