@@ -303,7 +303,14 @@ def show_main(request):
 
 ![bagan client ke web berbasis django dan responnya](https://github.com/wahyuhiddayat/medtrack/blob/main/DjangoMVTArchitecture.png)
 
+1. User mengirim __request__ yang mana akan ditangani oleh __controller__ (`view.py`).
+2. `views.py` akan mengirim `QuerySets` kepada `Models` untuk diproses.
+3. Database akan melakukan operasi _Read_ dari `Models`, dan kemudian melakukan operasi _Write_ untuk memperbarui `Models`.
+4. `models.py` akan mengirimkan `ResultSet` ke `views.py`.
+5. `views.py` akan menampilkan respons ke `Templates` untuk ditampilkan kepada pengguna.
+
 
 ## Mengapa __Virtual Environment__ Digunakan ##
+__Virtual environment__ digunakan karena memiliki kemampuan untuk menjaga isolasi antara __package__ dan __dependencies__ dari aplikasi kita. Ini menghindari potensi konflik dengan versi lain yang mungkin ada di sistem komputer kita. Dengan demikian, kita dapat dengan mudah bekerja pada berbagai proyek yang menggunakan versi berbeda tanpa khawatir mengenai konflik. Selain itu, penggunaan __virtual environment__ membantu dalam manajemen proyek dengan lebih baik. Lebih lanjut, dengan mengizinkan kita untuk menggunakan hanya __package__ dan __library__ yang benar-benar diperlukan, __virtual environment__ juga meningkatkan efisiensi sumber daya proyek kita, menghindari penggunaan yang tidak perlu dari seluruh __library__ yang tersedia.
 
 ## MVC, MVT, MVVM ##
