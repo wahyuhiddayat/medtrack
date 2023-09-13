@@ -2,6 +2,11 @@ from django.db import models
 
 # Create your models here.
 class Item(models.Model):
-    name = models.CharField(max_length=255)  # Nama item dengan tipe CharField
-    amount = models.IntegerField()           # Jumlah item dengan tipe IntegerField
-    description = models.TextField()         # Deskripsi item dengan tipe TextField
+    name = models.CharField(max_length=255)  
+    amount = models.IntegerField()           
+    description = models.TextField()         
+    price = models.IntegerField()            
+    data_added = models.DateField(auto_now_add=True)
+    category = models.TextField()
+    
+    
