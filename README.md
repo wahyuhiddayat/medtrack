@@ -108,7 +108,7 @@
 
     class ProductForm(ModelForm):
         class Meta:
-            model = Product
+            model = Item
             fields = ["name", "price", "description"]
     ```
 8. Buka berkas `views.py` yang ada pada folder main dan tambahkan beberapa import berikut pada bagian paling atas.
@@ -132,12 +132,12 @@
 10. Ubahlah fungsi `show_main` yang sudah ada pada berkas `views.py` menjadi seperti berikut.
     ```python
     def show_main(request):
-    products = Product.objects.all()
+    items = Item.objects.all()
 
     context = {
         'name': 'Wahyu Hidayat', 
         'class': 'PBP A', 
-        'products': products
+        'products': items
     }
 
     return render(request, "main.html", context)
@@ -150,12 +150,12 @@
     ```python
     path('create-product', create_product, name='create_product'),
     ```
-13. Buat berkas HTML baru dengan nama `create_product.html` pada direktori main/templates. Isi c`reate_product.html` dengan kode berikut.
+13. Buat berkas HTML baru dengan nama `create_product.html` pada direktori main/templates. Isi `create_product.html` dengan kode berikut.
     ```html
     {% extends 'base.html' %} 
 
     {% block content %}
-    <h1>Add New Product</h1>
+    <h1>Add New Item</h1>
 
     <form method="POST">
         {% csrf_token %}
@@ -164,7 +164,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <input type="submit" value="Add Product"/>
+                    <input type="submit" value="Add Item"/>
                 </td>
             </tr>
         </table>
@@ -172,7 +172,7 @@
 
     {% endblock %}
     ```
-14. Buka `main.html` dan tambahkan kode berikut di dalam {% block content %} untuk menampilkan data produk dalam bentuk _table_ serta tombol "Add New Product" yang akan _redirect_ ke halaman form.
+14. Buka `main.html` dan tambahkan kode berikut di dalam {% block content %} untuk menampilkan data produk dalam bentuk _table_ serta tombol "Add New Item" yang akan _redirect_ ke halaman form.
 
 ## <span id="tugas-3-2">Menambahkan 5 Fungsi `views` Untuk Melihat Objek yang Sudah Ditambahkan Dalam Format HTML, XML, JSON, XML by _ID_, dan JSON by _ID_</span> ##
 ### HTML ###
@@ -311,17 +311,17 @@ urlpatterns = [
 - Digunakan untuk permintaan yang tidak mengubah keadaan sistem, seperti formulir pencarian web.
 
 ## <span id="tugas-3-6">Perbedaan XML, JSON, dan HTML dalam Konteks Pengiriman Data</span> ##
-1. XML (eXtensible Markup Language)
+1. `XML (eXtensible Markup Language)`
 - XML adalah bahasa markup yang digunakan untuk mengorganisir dan menyimpan data secara hierarkis.
 - XML memiliki aturan ketat terkait dengan sintaksis dan strukturnya, seperti adanya tag pembuka dan penutup untuk setiap elemen data.
 - XML digunakan secara luas untuk pertukaran data antara aplikasi yang berbeda, terutama dalam lingkungan di mana struktur data yang kompleks dan metadata diperlukan.
 
-2. JSON (JavaScript Object Notation)
+2. `JSON (JavaScript Object Notation)`
 - JSON adalah format ringkas untuk merepresentasikan data dalam bentuk objek dan array.
 - JSON lebih ringan dan mudah dibaca oleh manusia dibandingkan dengan XML.
 - JSON sering digunakan dalam pengembangan web dan aplikasi karena formatnya yang bersahabat dengan bahasa pemrograman seperti JavaScript.
 
-3. HTML (HyperText Markup Language)
+3. `HTML (HyperText Markup Language)`
 - HTML adalah bahasa markup yang digunakan untuk membuat struktur halaman web dan menampilkan konten di browser.
 - HTML memiliki elemen dan tag yang digunakan untuk mengatur tampilan dan struktur halaman web.
 - HTML bukanlah format yang digunakan untuk pertukaran data seperti XML atau JSON, tetapi digunakan untuk menampilkan data secara visual di browser.
