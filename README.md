@@ -1,12 +1,290 @@
-<h1>Medtrack><h1>
+# 💊 Medtrack 🩺 #
 
-<h3>Nama    : Wahyu Hidayat<h3>
-<h3>NPM     : 2201233210<h3>
-<h3>Kelas   : PBP A<h3>
+### Nama    : Wahyu Hidayat ###
+### NPM     : 2201233210 ###
+### Kelas   : PBP A ###
 
 <h3>Adaptable : https://medtrack.adaptable.app/main<h3><br>
 
-## Membuat Sebuah Proyek Django Baru ##
+## Section ## 
+- [Tugas 2](#tugas-2)
+    - [Membuat Sebuah Proyek Django Baru](#tugas-2-1) 
+    - [Membuat Aplikasi Dengan Nama `main` Pada Proyek](#tugas-2-2)
+    - [Melakukan Routing Pada Proyek Agar Dapat Menjalankan Aplikasi `main``](#tugas-2-3) 
+    - [Membuat Model Pada Aplikasi `main` Dengan Nama `Item` dan Memiliki Atribut](#tugas-2-4) 
+    - [_Deployment_ ke Adaptable](#tugas-2-5)
+    - [Bagan Django](#tugas-2-6)
+    - [Mengapa _Virtual Environment_ Digunakan](#tugas-2-7)
+    - [MVC, MVT, dan MVVM](#tugas-2-8)
+- [Tugas 3](#tugas-3)
+    - [Membuat Input `form` Untuk Menambahkan Objek Model](#tugas-3-1)
+    - [Menambahkan 5 Fungsi `views` Untuk Melihat Objek yang Sudah Ditambahkan Dalam Format HTML, XML, JSON, XML by _ID_, dan JSON by _ID_](#tugas-3-2)
+    - [Membuat Routing URL Untuk Masing-Masing `views` yang Telah Ditambahkan](#tugas-3-3)
+    - [Mengakses Kelima URL Menggunakan Postman](#tugas-3-4)
+
+
+
+<h1 id="tugas-3" style="color: #FFBF18;">Tugas 3</h1>
+
+## <span id="tugas-3-1">Membuat Input `form` Untuk Menambahkan Objek Model</span> ##
+
+1. Jalankan _virtual environment_ dan karena saya menggunakan MacOS maka saya menggunakan command berikut:
+    ```bash
+    source env/bin/activate
+    ```
+2. Buka `urls.py` yang ada pada folder `medtrack` dan modifikasi _path_ `main/` menjadi `''` pada `urlpatterns`.
+
+    _Before_
+    ```python
+    urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('main/', include('main.urls')),
+    ]
+    ```
+    After
+    ```python
+    urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('main/', include('main.urls')),
+    ]
+    ```
+
+3. Buat _folder_ `templates` pada root folder.
+4. Buat berkas HTML baru bernama `base.html` yang akan berfungsi sebagai _template_ dasar.
+    ```html
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            />
+            {% block meta %}
+            {% endblock meta %}
+        </head>
+
+        <body>
+            {% block content %}
+            {% endblock content %}
+        </body>
+    </html>
+    ```
+5. Buka `settings.py` pada subdirektori `medtrack` dan tambahkan kode berikut agar membuat berkas `base.html` terdeteksi sebagai berkas _template_
+    ```python
+    ...
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [BASE_DIR / 'templates'], # Tambahkan kode ini
+            'APP_DIRS': True,
+            ...
+        }
+    ]
+    ...
+    ```
+6. Buka berkas `main.html` pada subdirektori `templates` yang ada pada direktori `main` dan ubah isinya.
+    ```html
+    {% extends 'base.html' %}
+
+    {% block content %}
+        <h1>Medtrack</h1>
+
+        <h5>Name:</h5>
+        <p>{{name}}</p>
+
+        <h5>Class:</h5>
+        <p>{{class}}</p>
+    {% endblock content %}
+    ```
+    > Kode di atas sama saja dengan kode sebelumnya tetapi hanya menggunakan `base.html` sebagai _template_ utama.
+7. Buat berkas baru pada direktori `main` dengan nama `forms.py` untuk membuat struktur form yang dapat menerima data produk baru. Tambahkan kode berikut ke dalam berkas `forms.py`.
+    ```python
+    from django.forms import ModelForm
+    from main.models import Item
+
+    class ProductForm(ModelForm):
+        class Meta:
+            model = Product
+            fields = ["name", "price", "description"]
+    ```
+8. Buka berkas `views.py` yang ada pada folder main dan tambahkan beberapa import berikut pada bagian paling atas.
+    ```python
+    from django.http import HttpResponseRedirect
+    from main.forms import ProductForm
+    from django.urls import reverse
+    ```
+9. Buat fungsi baru dengan nama `create_product` pada berkas tersebut yang menerima parameter request dan tambahkan potongan kode di bawah ini untuk menghasilkan formulir yang dapat menambahkan data produk secara otomatis ketika data di-submit dari form.
+    ```python
+    def create_product(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_product.html", context)
+    ```
+10. Ubahlah fungsi `show_main` yang sudah ada pada berkas `views.py` menjadi seperti berikut.
+    ```python
+    def show_main(request):
+    products = Product.objects.all()
+
+    context = {
+        'name': 'Wahyu Hidayat', 
+        'class': 'PBP A', 
+        'products': products
+    }
+
+    return render(request, "main.html", context)
+    ```
+11. Buka `urls.py` yang ada pada folder `main` dan import fungsi `create_product`
+    ```python
+    from main.views import show_main, create_product
+    ```
+12. Tambahkan path _url_ ke dalam `urlpatterns` pada `urls.py` di `main` untuk mengakses fungsi yang sudah di-import pada poin sebelumnya.
+    ```python
+    path('create-product', create_product, name='create_product'),
+    ```
+13. Buat berkas HTML baru dengan nama `create_product.html` pada direktori main/templates. Isi c`reate_product.html` dengan kode berikut.
+    ```html
+    {% extends 'base.html' %} 
+
+    {% block content %}
+    <h1>Add New Product</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Add Product"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    {% endblock %}
+    ```
+14. Buka `main.html` dan tambahkan kode berikut di dalam {% block content %} untuk menampilkan data produk dalam bentuk _table_ serta tombol "Add New Product" yang akan _redirect_ ke halaman form.
+
+## <span id="tugas-3-2">Menambahkan 5 Fungsi `views` Untuk Melihat Objek yang Sudah Ditambahkan Dalam Format HTML, XML, JSON, XML by _ID_, dan JSON by _ID_</span> ##
+### HTML ###
+Buka berkas `views.py` pada direktori `main` dan ubah fungsi `show_main` menjadi sebagai berikut untuk menampilkan semua objek `Item`
+```python
+from main.models import Item
+
+def show_main(request):
+    items = Item.objects.all()
+
+    context = {
+        'name': 'Wahyu Hidayat', 
+        'class': 'PBP A', 
+        'products': items
+    }
+
+    return render(request, "main.html", context)
+```
+### XML ###
+Buka berkas `views.py` pada direktori `main` dan tambahkan _import_ _HttpResponse_ dan _Serializer_
+```python
+from django.http import HttpResponse
+from django.core import serializers
+```
+Tambahkan kode berikut:
+```python
+def show_xml(request):
+    data = Item.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+```
+Import fungsi tadi ke `urls.py` pada direktori `main`
+```python
+from main.views import show_main, create_product, show_xml 
+```
+Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+```python
+...
+path('xml/', show_xml, name='show_xml'), 
+...
+```
+### JSON ###
+Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
+```python
+def show_json(request):
+    data = Item.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+Import fungsi tadi ke `urls.py` pada direktori `main`
+```python
+from main.views import show_main, create_product, show_xml 
+```
+Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+```python
+...
+path('json/', show_json, name='show_json'), 
+...
+```
+### XML _by_ ID ###
+Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
+```python
+def show_xml_by_id(request, id):
+    data = Item.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+```
+Import fungsi tadi ke `urls.py` pada direktori `main`
+```python
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id
+```
+Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+```python
+path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+```
+
+### JSON _by_ ID ###
+Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
+```python
+def show_json_by_id(request, id):
+    data = Item.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+Import fungsi tadi ke `urls.py` pada direktori `main`
+```python
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id 
+```
+Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+```python
+path('json/', show_json, name='show_json'), 
+```
+
+## <span id="tugas-3-3">Membuat Routing URL Untuk Masing-Masing Views yang Telah Ditambahkan Pada Poin 2</span> ##
+Buka `urls.py` pada direktori `main` dan tambahkan kode berikut
+```python
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id 
+
+urlpatterns = [
+    ...
+    path('create-product', create_product, name='create_product'),
+    path('xml/', show_xml, name='show_xml'), 
+    path('json/', show_json, name='show_json'), 
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+    ...
+    ]
+```
+
+## <span id="tugas-3-4">Mengakses Kelima URL Menggunakan Postman</span> ##
+
+
+
+
+<h1 id="tugas-2" style="color: #FFBF18;">Tugas 2</h1>
+
+## <span id="tugas-2-1">Membuat Sebuah Proyek Django Baru</span> ##
+
 1. Buat direktori baru dengan nama `medtrack`.
 2. Masuk ke dalam direktori tersebut dan buka `Terminal`.
 3. Buat __virtual environment__ dengan menjalankan perintah berikut.
@@ -189,7 +467,7 @@ GitHub.sublime-settings
 ```
 14. `add`, `commit`, dan `push` direktori tersebut ke GitHub.
 
-## Membuat Aplikasi Dengan Nama `main` Pada Proyek ##
+## <span id="tugas-2-2">Membuat Aplikasi Dengan Nama `main` Pada Proyek</span> ##
 1. Jalankan perintah berikut untuk membuat aplikasi baru (pastikan `Terminal` berjalan dengan `medtrack` sebagai direktori yang aktif).
 ```bash
 python manage.py startapp main
@@ -206,7 +484,7 @@ python manage.py startapp main
     ]
     ``` 
 
-## Melakukan Routing Pada Proyek Agar Dapat Menjalankan Aplikasi `main` ##
+## <span id="tugas-2-3">Melakukan Routing Pada Proyek Agar Dapat Menjalankan Aplikasi `main`</span> ##
 1. Buat berkas `urls.py` di dalam direktori `main`.
 2. Isi `urls.py` dengan kode berikut:
 ```python
@@ -235,7 +513,8 @@ urlpatterns = [
 ]
 ```
 
-## Membuat Model Pada Aplikasi `main` Dengan Nama `Item` dan Memiliki Atribut ##
+## <span id="tugas-2-4">Membuat Model Pada Aplikasi `main` Dengan Nama `Item` dan Memiliki Atribut</span> ##
+
 1. Buka berkas `models.py` pada direktori aplikasi `main`.
 2. Isi berkas `models.py` dengan kode berikut.
 ```python
@@ -299,7 +578,7 @@ def show_main(request):
 <p>{{ description }}</p>
 ```
 
-## __Deployment__ ke Adaptable ##
+## <span id="tugas-2-5">_Deployment_ ke Adaptable</span> ##
 1. Login menggunakan GitHub di [Adaptable.io](https://adaptable.io/)
 2. Tekan tombol `New App` lalu pilih `Connect an Existing Repository`.
 3. Hubungkan [Adaptable.io](https://adaptable.io/) dengan GitHub dan pilih `All Repositories` pada proses instalasi.
@@ -320,7 +599,7 @@ def show_main(request):
 11. Masukkan `migrate` sebagai nama aplikasi.
 12. Centang bagian `HTTP Listener on PORT` dan klik `Deploy App` untuk memulai proses __deployment__ aplikasi.
 
-## Bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html` ## 
+## <span id="tugas-2-6">Bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`</span> ##
 
 ![bagan client ke web berbasis django dan responnya](https://github.com/wahyuhiddayat/medtrack/blob/main/DjangoMVTArchitecture.png)
 
@@ -331,10 +610,11 @@ def show_main(request):
 5. `views.py` akan menampilkan respons ke `Templates` untuk ditampilkan kepada pengguna.
 
 
-## Mengapa __Virtual Environment__ Digunakan ##
-__Virtual environment__ digunakan karena memiliki kemampuan untuk menjaga isolasi antara __package__ dan __dependencies__ dari aplikasi kita. Ini menghindari potensi konflik dengan versi lain yang mungkin ada di sistem komputer kita. Dengan demikian, kita dapat dengan mudah bekerja pada berbagai proyek yang menggunakan versi berbeda tanpa khawatir mengenai konflik. Selain itu, penggunaan __virtual environment__ membantu dalam manajemen proyek dengan lebih baik. Lebih lanjut, dengan mengizinkan kita untuk menggunakan hanya __package__ dan __library__ yang benar-benar diperlukan, __virtual environment__ juga meningkatkan efisiensi sumber daya proyek kita, menghindari penggunaan yang tidak perlu dari seluruh __library__ yang tersedia.
+## <span id="tugas-2-7">Mengapa _Virtual Environment_ Digunakan</span> ##
 
-## Memahami Pola Arsitektur Perangkat Lunak: MVC, MVT, MVVM ##
+_Virtual environment_ digunakan karena memiliki kemampuan untuk menjaga isolasi antara _package_ dan _dependencies_ dari aplikasi kita. Ini menghindari potensi konflik dengan versi lain yang mungkin ada di sistem komputer kita. Dengan demikian, kita dapat dengan mudah bekerja pada berbagai proyek yang menggunakan versi berbeda tanpa khawatir mengenai konflik. Selain itu, penggunaan _virtual environment_ membantu dalam manajemen proyek dengan lebih baik. Lebih lanjut, dengan mengizinkan kita untuk menggunakan hanya _package_ dan _library_ yang benar-benar diperlukan, _virtual environment_ juga meningkatkan efisiensi sumber daya proyek kita, menghindari penggunaan yang tidak perlu dari seluruh _library_ yang tersedia.
+
+## <span id="tugas-2-8">MVC, MVT, dan MVVM</span> ##
 
 ## 1. MVC (Model View Controller)
 
@@ -365,5 +645,7 @@ MVVM adalah pola arsitektur, yang diciptakan oleh arsitek Microsoft Ken Cooper d
 - **View**: Bertanggung jawab untuk menampilkan elemen antarmuka pengguna, tetapi tidak memiliki logika bisnis yang signifikan.
 
 - **ViewModel**: Merupakan perantara antara Model dan View. Ini mengelola tampilan data dan berisi logika yang diperlukan untuk tampilan. ViewModel memungkinkan View untuk tetap terpisah dari Model dan mendorong penggunaan data yang lebih dekat dengan tampilan.
+
+
 
 
