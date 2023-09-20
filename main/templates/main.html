@@ -1,17 +1,44 @@
-<h1>Medtrack</h1>
+{% extends 'base.html' %}
 
-<h5>Name: </h5>
-<p>{{ user }}</p>
-<h5>Class: </h5>
-<p>{{ class }}</p>
+{% block content %}
+    <h1>Medtrack</h1>
 
-<h4>Name: </h4>
-<p>{{ name }}</p>
-<h4>Amount: </h4>
-<p>{{ amount }}</p>
-<h4>Price: </h4>
-<p>Rp.{{ price }}</p>
-<h4>Category: </h4>
-<p>{{ category }}</p>
-<h4>Description: </h4>
-<p>{{ description }}</p>
+    <h5>Name:</h5>
+    <p>{{name}}</p>
+
+    <h5>Class:</h5>
+    <p>{{class}}</p>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>
+
+        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+        {% for product in products %}
+            <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.amount}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.date_added}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    <a href="{% url 'main:create_product' %}">
+        <button>
+            Add New Item
+        </button>
+    </a>
+
+{% endblock content %}

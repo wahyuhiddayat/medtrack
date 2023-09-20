@@ -21,6 +21,9 @@
     - [Menambahkan 5 Fungsi `views` Untuk Melihat Objek yang Sudah Ditambahkan Dalam Format HTML, XML, JSON, XML by _ID_, dan JSON by _ID_](#tugas-3-2)
     - [Membuat Routing URL Untuk Masing-Masing `views` yang Telah Ditambahkan](#tugas-3-3)
     - [Mengakses Kelima URL Menggunakan Postman](#tugas-3-4)
+    - [Perbedaan Form `POST` dan `GET` dalam Django](#tugas-3-5)
+    - [Perbedaan XML, JSON, dan HTML dalam Konteks Pengiriman Data](#tugas-3-6)
+    - [Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern](#tugas-3-7)
 
 
 <h1 id="tugas-3" style="color: #FFBF18;">Tugas 3</h1>
@@ -285,12 +288,68 @@ urlpatterns = [
 ### XML ###
 ![Postman XML](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXML.png)
 
-### JSON by Id ###
-![Postman JSON by Id](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanJSONById.png)
+### JSON by ID ###
+![Postman JSON by ID](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanJSONById.png)
 
-### XML by Id ###
-![Postman XML by Id](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXMLById.png)
+### XML by ID ###
+![Postman XML by ID](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXMLById.png)
 
+## <span id="tugas-3-5">Perbedaan Form `POST` dan `GET` dalam Django</span> ##
+1. `POST`
+- Digunakan untuk mengumpulkan data dan meng-encode data tersebut untuk dikirimkan ke server.
+- Lebih aman untuk melindungi data karena tidak akan diekspos di URL.
+- Digunakan untuk request yang mengubah keadaan sistem, seperti request untuk melakukan perubahan di database.
+- Data yang dikirim dengan metode POST melewati header HTTP sehingga keamanan bergantung pada protokol HTTP.
+- Data tidak terlihat di URL, sehingga tidak disimpan dalam riwayat browser atau log server web.
+- Cocok untuk menambahkan data baru (mengirim data dari formulir HTML) ke dalam database.
+
+2. `GET`
+- Digunakan untuk mengirim permintaan request ke server untuk mendapatkan data yang ada di database.
+- Request parameter dari method GET ditambahkan ke URL.
+- Lebih baik tidak digunakan untuk informasi yang sensitif karena request dari GET terlihat di URL, yang dapat membahayakan keamanan.
+- Mengumpulkan data menjadi sebuah string untuk membuat URL bersama dengan nilai-nilainya.
+- Digunakan untuk permintaan yang tidak mengubah keadaan sistem, seperti formulir pencarian web.
+
+## <span id="tugas-3-6">Perbedaan XML, JSON, dan HTML dalam Konteks Pengiriman Data</span> ##
+1. XML (eXtensible Markup Language)
+- XML adalah bahasa markup yang digunakan untuk mengorganisir dan menyimpan data secara hierarkis.
+- XML memiliki aturan ketat terkait dengan sintaksis dan strukturnya, seperti adanya tag pembuka dan penutup untuk setiap elemen data.
+- XML digunakan secara luas untuk pertukaran data antara aplikasi yang berbeda, terutama dalam lingkungan di mana struktur data yang kompleks dan metadata diperlukan.
+
+2. JSON (JavaScript Object Notation)
+- JSON adalah format ringkas untuk merepresentasikan data dalam bentuk objek dan array.
+- JSON lebih ringan dan mudah dibaca oleh manusia dibandingkan dengan XML.
+- JSON sering digunakan dalam pengembangan web dan aplikasi karena formatnya yang bersahabat dengan bahasa pemrograman seperti JavaScript.
+
+3. HTML (HyperText Markup Language)
+- HTML adalah bahasa markup yang digunakan untuk membuat struktur halaman web dan menampilkan konten di browser.
+- HTML memiliki elemen dan tag yang digunakan untuk mengatur tampilan dan struktur halaman web.
+- HTML bukanlah format yang digunakan untuk pertukaran data seperti XML atau JSON, tetapi digunakan untuk menampilkan data secara visual di browser.
+
+## <span id="tugas-3-7">Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern</span> ##
+1. Ringkas dan Mudah Dibaca
+JSON memiliki format yang ringkas dan mudah dibaca oleh manusia. Ini membuatnya ideal untuk pertukaran data yang perlu dipahami oleh pengembang atau administrator sistem. Karena strukturnya yang sederhana, JSON seringkali lebih kompak dibandingkan dengan format lain seperti XML, sehingga menghemat bandwidth.
+
+2. _Language-independent_
+JSON adalah format data yang independen dari bahasa pemrograman, yang berarti dapat digunakan dengan berbagai bahasa pemrograman seperti JavaScript, Python, PHP, dan banyak lainnya. Hal ini memungkinkan aplikasi yang ditulis dalam bahasa yang berbeda untuk berkomunikasi dengan mudah.
+
+3. Integrasi Web
+JSON sangat cocok untuk aplikasi web karena bahasa JavaScript secara alami mendukung JSON. Ini memungkinkan browser untuk mengurai data JSON dengan mudah, membuatnya ideal untuk komunikasi antara browser dan server, serta dalam penggunaan API web.
+
+4. Struktur Data yang Fleksibel
+JSON memungkinkan representasi data yang bersarang dan kompleks, yang cocok untuk data yang memiliki hierarki atau hubungan yang rumit. Ini membuatnya sangat fleksibel untuk menggambarkan berbagai jenis data.
+
+5. Mendukung Tipe Data yang Umum
+JSON mendukung tipe data umum seperti string, angka, boolean, array, dan objek. Hal ini memudahkan untuk menggambarkan berbagai jenis data, termasuk data teks, numerik, tanggal, dan waktu.
+
+6. Dukungan oleh Banyak Library
+Ada banyak library JSON yang tersedia untuk berbagai bahasa pemrograman, yang memudahkan pengolahan dan penguraian JSON. Ini membuat penggunaan JSON sangat efisien dalam pengembangan aplikasi.
+
+7. Pengembangan API
+JSON sering digunakan dalam pengembangan API RESTful karena formatnya yang intuitif dan mudah dipahami. Ini memungkinkan aplikasi berkomunikasi dengan mudah melalui permintaan HTTP yang menggunakan JSON sebagai format pertukuran data.
+
+8. Dukungan Browser
+Hampir semua browser web modern mendukung JSON, yang membuatnya sangat cocok untuk pertukaran data antara browser dan server, seperti dalam pengembangan aplikasi web berbasis JavaScript.
 
 
 <h1 id="tugas-2" style="color: #FFBF18;">Tugas 2</h1>
