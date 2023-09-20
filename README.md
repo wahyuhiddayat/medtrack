@@ -23,7 +23,6 @@
     - [Mengakses Kelima URL Menggunakan Postman](#tugas-3-4)
 
 
-
 <h1 id="tugas-3" style="color: #FFBF18;">Tugas 3</h1>
 
 ## <span id="tugas-3-1">Membuat Input `form` Untuk Menambahkan Objek Model</span> ##
@@ -277,7 +276,20 @@ urlpatterns = [
 ```
 
 ## <span id="tugas-3-4">Mengakses Kelima URL Menggunakan Postman</span> ##
+### HTML ###
+![Postman HTML](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanHTML.png)
 
+### JSON ###
+![Postman JSON](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanJSON.png)
+
+### XML ###
+![Postman XML](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXML.png)
+
+### JSON by Id ###
+![Postman JSON by Id](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanJSONById.png)
+
+### XML by Id ###
+![Postman XML by Id](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXMLById.png)
 
 
 
