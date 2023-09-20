@@ -328,28 +328,28 @@ urlpatterns = [
 
 ## <span id="tugas-3-7">Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern</span> ##
 1. Ringkas dan Mudah Dibaca
-JSON memiliki format yang ringkas dan mudah dibaca oleh manusia. Ini membuatnya ideal untuk pertukaran data yang perlu dipahami oleh pengembang atau administrator sistem. Karena strukturnya yang sederhana, JSON seringkali lebih kompak dibandingkan dengan format lain seperti XML, sehingga menghemat bandwidth.
+    - JSON memiliki format yang ringkas dan mudah dibaca oleh manusia. Ini membuatnya ideal untuk pertukaran data yang perlu dipahami oleh pengembang atau administrator sistem. Karena strukturnya yang sederhana, JSON seringkali lebih kompak dibandingkan dengan format lain seperti XML, sehingga menghemat bandwidth.
 
 2. _Language-independent_
-JSON adalah format data yang independen dari bahasa pemrograman, yang berarti dapat digunakan dengan berbagai bahasa pemrograman seperti JavaScript, Python, PHP, dan banyak lainnya. Hal ini memungkinkan aplikasi yang ditulis dalam bahasa yang berbeda untuk berkomunikasi dengan mudah.
+    - JSON adalah format data yang independen dari bahasa pemrograman, yang berarti dapat digunakan dengan berbagai bahasa pemrograman seperti JavaScript, Python, PHP, dan banyak lainnya. Hal ini memungkinkan aplikasi yang ditulis dalam bahasa yang berbeda untuk berkomunikasi dengan mudah.
 
 3. Integrasi Web
-JSON sangat cocok untuk aplikasi web karena bahasa JavaScript secara alami mendukung JSON. Ini memungkinkan browser untuk mengurai data JSON dengan mudah, membuatnya ideal untuk komunikasi antara browser dan server, serta dalam penggunaan API web.
+    - JSON sangat cocok untuk aplikasi web karena bahasa JavaScript secara alami mendukung JSON. Ini memungkinkan browser untuk mengurai data JSON dengan mudah, membuatnya ideal untuk komunikasi antara browser dan server, serta dalam penggunaan API web.
 
 4. Struktur Data yang Fleksibel
-JSON memungkinkan representasi data yang bersarang dan kompleks, yang cocok untuk data yang memiliki hierarki atau hubungan yang rumit. Ini membuatnya sangat fleksibel untuk menggambarkan berbagai jenis data.
+    - JSON memungkinkan representasi data yang bersarang dan kompleks, yang cocok untuk data yang memiliki hierarki atau hubungan yang rumit. Ini membuatnya sangat fleksibel untuk menggambarkan berbagai jenis data.
 
 5. Mendukung Tipe Data yang Umum
-JSON mendukung tipe data umum seperti string, angka, boolean, array, dan objek. Hal ini memudahkan untuk menggambarkan berbagai jenis data, termasuk data teks, numerik, tanggal, dan waktu.
+    - JSON mendukung tipe data umum seperti string, angka, boolean, array, dan objek. Hal ini memudahkan untuk menggambarkan berbagai jenis data, termasuk data teks, numerik, tanggal, dan waktu.
 
 6. Dukungan oleh Banyak Library
-Ada banyak library JSON yang tersedia untuk berbagai bahasa pemrograman, yang memudahkan pengolahan dan penguraian JSON. Ini membuat penggunaan JSON sangat efisien dalam pengembangan aplikasi.
+    - Ada banyak library JSON yang tersedia untuk berbagai bahasa pemrograman, yang memudahkan pengolahan dan penguraian JSON. Ini membuat penggunaan JSON sangat efisien dalam pengembangan aplikasi.
 
 7. Pengembangan API
-JSON sering digunakan dalam pengembangan API RESTful karena formatnya yang intuitif dan mudah dipahami. Ini memungkinkan aplikasi berkomunikasi dengan mudah melalui permintaan HTTP yang menggunakan JSON sebagai format pertukuran data.
+    - JSON sering digunakan dalam pengembangan API RESTful karena formatnya yang intuitif dan mudah dipahami. Ini memungkinkan aplikasi berkomunikasi dengan mudah melalui permintaan HTTP yang menggunakan JSON sebagai format pertukuran data.
 
 8. Dukungan Browser
-Hampir semua browser web modern mendukung JSON, yang membuatnya sangat cocok untuk pertukaran data antara browser dan server, seperti dalam pengembangan aplikasi web berbasis JavaScript.
+    - Hampir semua browser web modern mendukung JSON, yang membuatnya sangat cocok untuk pertukaran data antara browser dan server, seperti dalam pengembangan aplikasi web berbasis JavaScript.
 
 
 <h1 id="tugas-2" style="color: #FFBF18;">Tugas 2</h1>
