@@ -672,7 +672,7 @@ def show_main(request):
 
 ## <span id="tugas-2-6">Bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara `urls.py`, `views.py`, `models.py`, dan berkas `html`</span> ##
 
-![bagan client ke web berbasis django dan responnya](https://github.com/wahyuhiddayat/medtrack/blob/main/DjangoMVTArchitecture.png)
+![Django MCT Architecture](https://github.com/wahyuhiddayat/medtrack/blob/main/images/DjangoMVTArchitecture.png)
 
 1. User mengirim `request` yang mana akan ditangani oleh `controller` (`view.py`).
 2. `views.py` akan mengirim `QuerySets` kepada `Models` untuk diproses.
