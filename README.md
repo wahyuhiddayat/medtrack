@@ -26,331 +26,334 @@
     - [Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern](#tugas-3-7)
 
 
-<h1 id="tugas-3" style="color: #FFBF18;">Tugas 3</h1>
+<details>
+<summary>Tugas 3</summary>
+<br>
 
-## <span id="tugas-3-1">Membuat Input `form` Untuk Menambahkan Objek Model</span> ##
+    ## <span id="tugas-3-1">Membuat Input `form` Untuk Menambahkan Objek Model</span> ##
 
-1. Jalankan _virtual environment_ dan karena saya menggunakan MacOS maka saya menggunakan command berikut:
-    ```bash
-    source env/bin/activate
-    ```
-2. Buka `urls.py` yang ada pada folder `medtrack` dan modifikasi _path_ `main/` menjadi `''` pada `urlpatterns`.
+    1. Jalankan _virtual environment_ dan karena saya menggunakan MacOS maka saya menggunakan command berikut:
+        ```bash
+        source env/bin/activate
+        ```
+    2. Buka `urls.py` yang ada pada folder `medtrack` dan modifikasi _path_ `main/` menjadi `''` pada `urlpatterns`.
 
-    _Before_
-    ```python
-    urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('main/', include('main.urls')),
-    ]
-    ```
-    After
-    ```python
-    urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('main/', include('main.urls')),
-    ]
-    ```
+        _Before_
+        ```python
+        urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('main/', include('main.urls')),
+        ]
+        ```
+        After
+        ```python
+        urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('main/', include('main.urls')),
+        ]
+        ```
 
-3. Buat _folder_ `templates` pada root folder.
-4. Buat berkas HTML baru bernama `base.html` yang akan berfungsi sebagai _template_ dasar.
-    ```html
-    {% load static %}
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8" />
-            <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1.0"
-            />
-            {% block meta %}
-            {% endblock meta %}
-        </head>
+    3. Buat _folder_ `templates` pada root folder.
+    4. Buat berkas HTML baru bernama `base.html` yang akan berfungsi sebagai _template_ dasar.
+        ```html
+        {% load static %}
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
+                {% block meta %}
+                {% endblock meta %}
+            </head>
 
-        <body>
-            {% block content %}
-            {% endblock content %}
-        </body>
-    </html>
-    ```
-5. Buka `settings.py` pada subdirektori `medtrack` dan tambahkan kode berikut agar membuat berkas `base.html` terdeteksi sebagai berkas _template_
-    ```python
-    ...
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [BASE_DIR / 'templates'], # Tambahkan kode ini
-            'APP_DIRS': True,
-            ...
+            <body>
+                {% block content %}
+                {% endblock content %}
+            </body>
+        </html>
+        ```
+    5. Buka `settings.py` pada subdirektori `medtrack` dan tambahkan kode berikut agar membuat berkas `base.html` terdeteksi sebagai berkas _template_
+        ```python
+        ...
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [BASE_DIR / 'templates'], # Tambahkan kode ini
+                'APP_DIRS': True,
+                ...
+            }
+        ]
+        ...
+        ```
+    6. Buka berkas `main.html` pada subdirektori `templates` yang ada pada direktori `main` dan ubah isinya.
+        ```html
+        {% extends 'base.html' %}
+
+        {% block content %}
+            <h1>Medtrack</h1>
+
+            <h5>Name:</h5>
+            <p>{{name}}</p>
+
+            <h5>Class:</h5>
+            <p>{{class}}</p>
+        {% endblock content %}
+        ```
+        > Kode di atas sama saja dengan kode sebelumnya tetapi hanya menggunakan `base.html` sebagai _template_ utama.
+    7. Buat berkas baru pada direktori `main` dengan nama `forms.py` untuk membuat struktur form yang dapat menerima data produk baru. Tambahkan kode berikut ke dalam berkas `forms.py`.
+        ```python
+        from django.forms import ModelForm
+        from main.models import Item
+
+        class ProductForm(ModelForm):
+            class Meta:
+                model = Item
+                fields = ["name", "price", "description"]
+        ```
+    8. Buka berkas `views.py` yang ada pada folder main dan tambahkan beberapa import berikut pada bagian paling atas.
+        ```python
+        from django.http import HttpResponseRedirect
+        from main.forms import ProductForm
+        from django.urls import reverse
+        ```
+    9. Buat fungsi baru dengan nama `create_product` pada berkas tersebut yang menerima parameter request dan tambahkan potongan kode di bawah ini untuk menghasilkan formulir yang dapat menambahkan data produk secara otomatis ketika data di-submit dari form.
+        ```python
+        def create_product(request):
+        form = ProductForm(request.POST or None)
+
+        if form.is_valid() and request.method == "POST":
+            form.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+
+        context = {'form': form}
+        return render(request, "create_product.html", context)
+        ```
+    10. Ubahlah fungsi `show_main` yang sudah ada pada berkas `views.py` menjadi seperti berikut.
+        ```python
+        def show_main(request):
+        items = Item.objects.all()
+
+        context = {
+            'name': 'Wahyu Hidayat', 
+            'class': 'PBP A', 
+            'products': items
         }
-    ]
-    ...
-    ```
-6. Buka berkas `main.html` pada subdirektori `templates` yang ada pada direktori `main` dan ubah isinya.
-    ```html
-    {% extends 'base.html' %}
 
-    {% block content %}
-        <h1>Medtrack</h1>
+        return render(request, "main.html", context)
+        ```
+    11. Buka `urls.py` yang ada pada folder `main` dan import fungsi `create_product`
+        ```python
+        from main.views import show_main, create_product
+        ```
+    12. Tambahkan path _url_ ke dalam `urlpatterns` pada `urls.py` di `main` untuk mengakses fungsi yang sudah di-import pada poin sebelumnya.
+        ```python
+        path('create-product', create_product, name='create_product'),
+        ```
+    13. Buat berkas HTML baru dengan nama `create_product.html` pada direktori main/templates. Isi `create_product.html` dengan kode berikut.
+        ```html
+        {% extends 'base.html' %} 
 
-        <h5>Name:</h5>
-        <p>{{name}}</p>
+        {% block content %}
+        <h1>Add New Item</h1>
 
-        <h5>Class:</h5>
-        <p>{{class}}</p>
-    {% endblock content %}
-    ```
-    > Kode di atas sama saja dengan kode sebelumnya tetapi hanya menggunakan `base.html` sebagai _template_ utama.
-7. Buat berkas baru pada direktori `main` dengan nama `forms.py` untuk membuat struktur form yang dapat menerima data produk baru. Tambahkan kode berikut ke dalam berkas `forms.py`.
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Add Item"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        {% endblock %}
+        ```
+    14. Buka `main.html` dan tambahkan kode berikut di dalam {% block content %} untuk menampilkan data produk dalam bentuk _table_ serta tombol "Add New Item" yang akan _redirect_ ke halaman form.
+
+    ## <span id="tugas-3-2">Menambahkan 5 Fungsi `views` Untuk Melihat Objek yang Sudah Ditambahkan Dalam Format HTML, XML, JSON, XML by _ID_, dan JSON by _ID_</span> ##
+    ### HTML ###
+    Buka berkas `views.py` pada direktori `main` dan ubah fungsi `show_main` menjadi sebagai berikut untuk menampilkan semua objek `Item`
     ```python
-    from django.forms import ModelForm
     from main.models import Item
 
-    class ProductForm(ModelForm):
-        class Meta:
-            model = Item
-            fields = ["name", "price", "description"]
-    ```
-8. Buka berkas `views.py` yang ada pada folder main dan tambahkan beberapa import berikut pada bagian paling atas.
-    ```python
-    from django.http import HttpResponseRedirect
-    from main.forms import ProductForm
-    from django.urls import reverse
-    ```
-9. Buat fungsi baru dengan nama `create_product` pada berkas tersebut yang menerima parameter request dan tambahkan potongan kode di bawah ini untuk menghasilkan formulir yang dapat menambahkan data produk secara otomatis ketika data di-submit dari form.
-    ```python
-    def create_product(request):
-    form = ProductForm(request.POST or None)
-
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
-
-    context = {'form': form}
-    return render(request, "create_product.html", context)
-    ```
-10. Ubahlah fungsi `show_main` yang sudah ada pada berkas `views.py` menjadi seperti berikut.
-    ```python
     def show_main(request):
-    items = Item.objects.all()
+        items = Item.objects.all()
 
-    context = {
-        'name': 'Wahyu Hidayat', 
-        'class': 'PBP A', 
-        'products': items
-    }
+        context = {
+            'name': 'Wahyu Hidayat', 
+            'class': 'PBP A', 
+            'products': items
+        }
 
-    return render(request, "main.html", context)
+        return render(request, "main.html", context)
     ```
-11. Buka `urls.py` yang ada pada folder `main` dan import fungsi `create_product`
+    ### XML ###
+    Buka berkas `views.py` pada direktori `main` dan tambahkan _import_ _HttpResponse_ dan _Serializer_
     ```python
-    from main.views import show_main, create_product
+    from django.http import HttpResponse
+    from django.core import serializers
     ```
-12. Tambahkan path _url_ ke dalam `urlpatterns` pada `urls.py` di `main` untuk mengakses fungsi yang sudah di-import pada poin sebelumnya.
+    Tambahkan kode berikut:
     ```python
-    path('create-product', create_product, name='create_product'),
+    def show_xml(request):
+        data = Item.objects.all()
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
     ```
-13. Buat berkas HTML baru dengan nama `create_product.html` pada direktori main/templates. Isi `create_product.html` dengan kode berikut.
-    ```html
-    {% extends 'base.html' %} 
-
-    {% block content %}
-    <h1>Add New Item</h1>
-
-    <form method="POST">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" value="Add Item"/>
-                </td>
-            </tr>
-        </table>
-    </form>
-
-    {% endblock %}
+    Import fungsi tadi ke `urls.py` pada direktori `main`
+    ```python
+    from main.views import show_main, create_product, show_xml 
     ```
-14. Buka `main.html` dan tambahkan kode berikut di dalam {% block content %} untuk menampilkan data produk dalam bentuk _table_ serta tombol "Add New Item" yang akan _redirect_ ke halaman form.
-
-## <span id="tugas-3-2">Menambahkan 5 Fungsi `views` Untuk Melihat Objek yang Sudah Ditambahkan Dalam Format HTML, XML, JSON, XML by _ID_, dan JSON by _ID_</span> ##
-### HTML ###
-Buka berkas `views.py` pada direktori `main` dan ubah fungsi `show_main` menjadi sebagai berikut untuk menampilkan semua objek `Item`
-```python
-from main.models import Item
-
-def show_main(request):
-    items = Item.objects.all()
-
-    context = {
-        'name': 'Wahyu Hidayat', 
-        'class': 'PBP A', 
-        'products': items
-    }
-
-    return render(request, "main.html", context)
-```
-### XML ###
-Buka berkas `views.py` pada direktori `main` dan tambahkan _import_ _HttpResponse_ dan _Serializer_
-```python
-from django.http import HttpResponse
-from django.core import serializers
-```
-Tambahkan kode berikut:
-```python
-def show_xml(request):
-    data = Item.objects.all()
-    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-```
-Import fungsi tadi ke `urls.py` pada direktori `main`
-```python
-from main.views import show_main, create_product, show_xml 
-```
-Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
-```python
-...
-path('xml/', show_xml, name='show_xml'), 
-...
-```
-### JSON ###
-Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
-```python
-def show_json(request):
-    data = Item.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-```
-Import fungsi tadi ke `urls.py` pada direktori `main`
-```python
-from main.views import show_main, create_product, show_xml 
-```
-Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
-```python
-...
-path('json/', show_json, name='show_json'), 
-...
-```
-### XML _by_ ID ###
-Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
-```python
-def show_xml_by_id(request, id):
-    data = Item.objects.filter(pk=id)
-    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-```
-Import fungsi tadi ke `urls.py` pada direktori `main`
-```python
-from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id
-```
-Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
-```python
-path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
-```
-
-### JSON _by_ ID ###
-Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
-```python
-def show_json_by_id(request, id):
-    data = Item.objects.filter(pk=id)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-```
-Import fungsi tadi ke `urls.py` pada direktori `main`
-```python
-from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id 
-```
-Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
-```python
-path('json/', show_json, name='show_json'), 
-```
-
-## <span id="tugas-3-3">Membuat Routing URL Untuk Masing-Masing Views yang Telah Ditambahkan Pada Poin 2</span> ##
-Buka `urls.py` pada direktori `main` dan tambahkan kode berikut
-```python
-from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id 
-
-urlpatterns = [
+    Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+    ```python
     ...
-    path('create-product', create_product, name='create_product'),
     path('xml/', show_xml, name='show_xml'), 
-    path('json/', show_json, name='show_json'), 
-    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
-    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
     ...
-    ]
-```
+    ```
+    ### JSON ###
+    Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
+    ```python
+    def show_json(request):
+        data = Item.objects.all()
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+    Import fungsi tadi ke `urls.py` pada direktori `main`
+    ```python
+    from main.views import show_main, create_product, show_xml 
+    ```
+    Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+    ```python
+    ...
+    path('json/', show_json, name='show_json'), 
+    ...
+    ```
+    ### XML _by_ ID ###
+    Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
+    ```python
+    def show_xml_by_id(request, id):
+        data = Item.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+    ```
+    Import fungsi tadi ke `urls.py` pada direktori `main`
+    ```python
+    from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id
+    ```
+    Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+    ```python
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+    ```
 
-## <span id="tugas-3-4">Mengakses Kelima URL Menggunakan Postman</span> ##
-### HTML ###
-![Postman HTML](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanHTML.png)
+    ### JSON _by_ ID ###
+    Buka berkas `views.py` pada direktori `main` dan tambahkan kode berikut
+    ```python
+    def show_json_by_id(request, id):
+        data = Item.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+    Import fungsi tadi ke `urls.py` pada direktori `main`
+    ```python
+    from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id 
+    ```
+    Tambahkan path _url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+    ```python
+    path('json/', show_json, name='show_json'), 
+    ```
 
-### JSON ###
-![Postman JSON](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanJSON.png)
+    ## <span id="tugas-3-3">Membuat Routing URL Untuk Masing-Masing Views yang Telah Ditambahkan Pada Poin 2</span> ##
+    Buka `urls.py` pada direktori `main` dan tambahkan kode berikut
+    ```python
+    from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id 
 
-### XML ###
-![Postman XML](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXML.png)
+    urlpatterns = [
+        ...
+        path('create-product', create_product, name='create_product'),
+        path('xml/', show_xml, name='show_xml'), 
+        path('json/', show_json, name='show_json'), 
+        path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+        path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+        ...
+        ]
+    ```
 
-### JSON by ID ###
-![Postman JSON by ID](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanJSONById.png)
+    ## <span id="tugas-3-4">Mengakses Kelima URL Menggunakan Postman</span> ##
+    ### HTML ###
+    ![Postman HTML](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanHTML.png)
 
-### XML by ID ###
-![Postman XML by ID](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXMLById.png)
+    ### JSON ###
+    ![Postman JSON](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanJSON.png)
 
-## <span id="tugas-3-5">Perbedaan Form `POST` dan `GET` dalam Django</span> ##
-1. `POST`
-- Digunakan untuk mengumpulkan data dan meng-encode data tersebut untuk dikirimkan ke server.
-- Lebih aman untuk melindungi data karena tidak akan diekspos di URL.
-- Digunakan untuk request yang mengubah keadaan sistem, seperti request untuk melakukan perubahan di database.
-- Data yang dikirim dengan metode POST melewati header HTTP sehingga keamanan bergantung pada protokol HTTP.
-- Data tidak terlihat di URL, sehingga tidak disimpan dalam riwayat browser atau log server web.
-- Cocok untuk menambahkan data baru (mengirim data dari formulir HTML) ke dalam database.
+    ### XML ###
+    ![Postman XML](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXML.png)
 
-2. `GET`
-- Digunakan untuk mengirim permintaan request ke server untuk mendapatkan data yang ada di database.
-- Request parameter dari method GET ditambahkan ke URL.
-- Lebih baik tidak digunakan untuk informasi yang sensitif karena request dari GET terlihat di URL, yang dapat membahayakan keamanan.
-- Mengumpulkan data menjadi sebuah string untuk membuat URL bersama dengan nilai-nilainya.
-- Digunakan untuk permintaan yang tidak mengubah keadaan sistem, seperti formulir pencarian web.
+    ### JSON by ID ###
+    ![Postman JSON by ID](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanJSONById.png)
 
-## <span id="tugas-3-6">Perbedaan XML, JSON, dan HTML dalam Konteks Pengiriman Data</span> ##
-1. `XML (eXtensible Markup Language)`
-- XML adalah bahasa markup yang digunakan untuk mengorganisir dan menyimpan data secara hierarkis.
-- XML memiliki aturan ketat terkait dengan sintaksis dan strukturnya, seperti adanya tag pembuka dan penutup untuk setiap elemen data.
-- XML digunakan secara luas untuk pertukaran data antara aplikasi yang berbeda, terutama dalam lingkungan di mana struktur data yang kompleks dan metadata diperlukan.
+    ### XML by ID ###
+    ![Postman XML by ID](https://github.com/wahyuhiddayat/medtrack/blob/main/images/PostmanXMLById.png)
 
-2. `JSON (JavaScript Object Notation)`
-- JSON adalah format ringkas untuk merepresentasikan data dalam bentuk objek dan array.
-- JSON lebih ringan dan mudah dibaca oleh manusia dibandingkan dengan XML.
-- JSON sering digunakan dalam pengembangan web dan aplikasi karena formatnya yang bersahabat dengan bahasa pemrograman seperti JavaScript.
+    ## <span id="tugas-3-5">Perbedaan Form `POST` dan `GET` dalam Django</span> ##
+    1. `POST`
+    - Digunakan untuk mengumpulkan data dan meng-encode data tersebut untuk dikirimkan ke server.
+    - Lebih aman untuk melindungi data karena tidak akan diekspos di URL.
+    - Digunakan untuk request yang mengubah keadaan sistem, seperti request untuk melakukan perubahan di database.
+    - Data yang dikirim dengan metode POST melewati header HTTP sehingga keamanan bergantung pada protokol HTTP.
+    - Data tidak terlihat di URL, sehingga tidak disimpan dalam riwayat browser atau log server web.
+    - Cocok untuk menambahkan data baru (mengirim data dari formulir HTML) ke dalam database.
 
-3. `HTML (HyperText Markup Language)`
-- HTML adalah bahasa markup yang digunakan untuk membuat struktur halaman web dan menampilkan konten di browser.
-- HTML memiliki elemen dan tag yang digunakan untuk mengatur tampilan dan struktur halaman web.
-- HTML bukanlah format yang digunakan untuk pertukaran data seperti XML atau JSON, tetapi digunakan untuk menampilkan data secara visual di browser.
+    2. `GET`
+    - Digunakan untuk mengirim permintaan request ke server untuk mendapatkan data yang ada di database.
+    - Request parameter dari method GET ditambahkan ke URL.
+    - Lebih baik tidak digunakan untuk informasi yang sensitif karena request dari GET terlihat di URL, yang dapat membahayakan keamanan.
+    - Mengumpulkan data menjadi sebuah string untuk membuat URL bersama dengan nilai-nilainya.
+    - Digunakan untuk permintaan yang tidak mengubah keadaan sistem, seperti formulir pencarian web.
 
-## <span id="tugas-3-7">Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern</span> ##
-1. Ringkas dan Mudah Dibaca
-    - JSON memiliki format yang ringkas dan mudah dibaca oleh manusia. Ini membuatnya ideal untuk pertukaran data yang perlu dipahami oleh pengembang atau administrator sistem. Karena strukturnya yang sederhana, JSON seringkali lebih kompak dibandingkan dengan format lain seperti XML, sehingga menghemat bandwidth.
+    ## <span id="tugas-3-6">Perbedaan XML, JSON, dan HTML dalam Konteks Pengiriman Data</span> ##
+    1. `XML (eXtensible Markup Language)`
+    - XML adalah bahasa markup yang digunakan untuk mengorganisir dan menyimpan data secara hierarkis.
+    - XML memiliki aturan ketat terkait dengan sintaksis dan strukturnya, seperti adanya tag pembuka dan penutup untuk setiap elemen data.
+    - XML digunakan secara luas untuk pertukaran data antara aplikasi yang berbeda, terutama dalam lingkungan di mana struktur data yang kompleks dan metadata diperlukan.
 
-2. _Language-independent_
-    - JSON adalah format data yang independen dari bahasa pemrograman, yang berarti dapat digunakan dengan berbagai bahasa pemrograman seperti JavaScript, Python, PHP, dan banyak lainnya. Hal ini memungkinkan aplikasi yang ditulis dalam bahasa yang berbeda untuk berkomunikasi dengan mudah.
+    2. `JSON (JavaScript Object Notation)`
+    - JSON adalah format ringkas untuk merepresentasikan data dalam bentuk objek dan array.
+    - JSON lebih ringan dan mudah dibaca oleh manusia dibandingkan dengan XML.
+    - JSON sering digunakan dalam pengembangan web dan aplikasi karena formatnya yang bersahabat dengan bahasa pemrograman seperti JavaScript.
 
-3. Integrasi Web
-    - JSON sangat cocok untuk aplikasi web karena bahasa JavaScript secara alami mendukung JSON. Ini memungkinkan browser untuk mengurai data JSON dengan mudah, membuatnya ideal untuk komunikasi antara browser dan server, serta dalam penggunaan API web.
+    3. `HTML (HyperText Markup Language)`
+    - HTML adalah bahasa markup yang digunakan untuk membuat struktur halaman web dan menampilkan konten di browser.
+    - HTML memiliki elemen dan tag yang digunakan untuk mengatur tampilan dan struktur halaman web.
+    - HTML bukanlah format yang digunakan untuk pertukaran data seperti XML atau JSON, tetapi digunakan untuk menampilkan data secara visual di browser.
 
-4. Struktur Data yang Fleksibel
-    - JSON memungkinkan representasi data yang bersarang dan kompleks, yang cocok untuk data yang memiliki hierarki atau hubungan yang rumit. Ini membuatnya sangat fleksibel untuk menggambarkan berbagai jenis data.
+    ## <span id="tugas-3-7">Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern</span> ##
+    1. Ringkas dan Mudah Dibaca
+        - JSON memiliki format yang ringkas dan mudah dibaca oleh manusia. Ini membuatnya ideal untuk pertukaran data yang perlu dipahami oleh pengembang atau administrator sistem. Karena strukturnya yang sederhana, JSON seringkali lebih kompak dibandingkan dengan format lain seperti XML, sehingga menghemat bandwidth.
 
-5. Mendukung Tipe Data yang Umum
-    - JSON mendukung tipe data umum seperti string, angka, boolean, array, dan objek. Hal ini memudahkan untuk menggambarkan berbagai jenis data, termasuk data teks, numerik, tanggal, dan waktu.
+    2. _Language-independent_
+        - JSON adalah format data yang independen dari bahasa pemrograman, yang berarti dapat digunakan dengan berbagai bahasa pemrograman seperti JavaScript, Python, PHP, dan banyak lainnya. Hal ini memungkinkan aplikasi yang ditulis dalam bahasa yang berbeda untuk berkomunikasi dengan mudah.
 
-6. Dukungan oleh Banyak Library
-    - Ada banyak library JSON yang tersedia untuk berbagai bahasa pemrograman, yang memudahkan pengolahan dan penguraian JSON. Ini membuat penggunaan JSON sangat efisien dalam pengembangan aplikasi.
+    3. Integrasi Web
+        - JSON sangat cocok untuk aplikasi web karena bahasa JavaScript secara alami mendukung JSON. Ini memungkinkan browser untuk mengurai data JSON dengan mudah, membuatnya ideal untuk komunikasi antara browser dan server, serta dalam penggunaan API web.
 
-7. Pengembangan API
-    - JSON sering digunakan dalam pengembangan API RESTful karena formatnya yang intuitif dan mudah dipahami. Ini memungkinkan aplikasi berkomunikasi dengan mudah melalui permintaan HTTP yang menggunakan JSON sebagai format pertukuran data.
+    4. Struktur Data yang Fleksibel
+        - JSON memungkinkan representasi data yang bersarang dan kompleks, yang cocok untuk data yang memiliki hierarki atau hubungan yang rumit. Ini membuatnya sangat fleksibel untuk menggambarkan berbagai jenis data.
 
-8. Dukungan Browser
-    - Hampir semua browser web modern mendukung JSON, yang membuatnya sangat cocok untuk pertukaran data antara browser dan server, seperti dalam pengembangan aplikasi web berbasis JavaScript.
+    5. Mendukung Tipe Data yang Umum
+        - JSON mendukung tipe data umum seperti string, angka, boolean, array, dan objek. Hal ini memudahkan untuk menggambarkan berbagai jenis data, termasuk data teks, numerik, tanggal, dan waktu.
 
+    6. Dukungan oleh Banyak Library
+        - Ada banyak library JSON yang tersedia untuk berbagai bahasa pemrograman, yang memudahkan pengolahan dan penguraian JSON. Ini membuat penggunaan JSON sangat efisien dalam pengembangan aplikasi.
+
+    7. Pengembangan API
+        - JSON sering digunakan dalam pengembangan API RESTful karena formatnya yang intuitif dan mudah dipahami. Ini memungkinkan aplikasi berkomunikasi dengan mudah melalui permintaan HTTP yang menggunakan JSON sebagai format pertukuran data.
+
+    8. Dukungan Browser
+        - Hampir semua browser web modern mendukung JSON, yang membuatnya sangat cocok untuk pertukaran data antara browser dan server, seperti dalam pengembangan aplikasi web berbasis JavaScript.
+
+</details>
 
 <h1 id="tugas-2" style="color: #FFBF18;">Tugas 2</h1>
 
