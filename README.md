@@ -938,6 +938,12 @@ urlpatterns = [
     ```
 
 ## <span id="tugas-4-5">Membuat Dua Akun Pengguna dengan Masing-masing Tiga _Dummy Data_ Menggunakan `model` yang telah Dibuat pada Aplikasi Sebelumnya untuk Setiap Akun di Lokal</span> ##
+1. Username "adriano"
+![Adriano's Items](https://github.com/wahyuhiddayat/medtrack/blob/main/images/Screenshot%202023-09-26%20at%209.36.54%20PM.png)
+
+2. Username "langit"
+![Langit's Items](https://github.com/wahyuhiddayat/medtrack/blob/main/images/Screenshot%202023-09-26%20at%209.37.21%20PM.png)
+
 
 ## <span id="tugas-4-6">Menghubungkan model `Item` dengan `User`</span> ##
 1. Buka `models.py` yang ada pada subdirektori `main` dan tambahkan kode berikut:
@@ -1032,7 +1038,6 @@ urlpatterns = [
 | Keamanan                                           | Membantu mencegah masalah keamanan umum, seperti injeksi SQL.                                                            |                                        |                                                                                                                                          |
 
 
-
 ## <span id="tugas-4-9">Apa Perbedaan Antara `Autentikasi` dan `Otorisasi` dalam Konteks `Django`, dan Mengapa Keduanya Penting?</span> ##
 ### Autentikasi ###
 Autentikasi adalah proses verifikasi identitas pengguna. Dengan kata lain, memastikan bahwa pengguna yang mencoba mengakses suatu sumber daya adalah siapa yang mereka klaim sebagai diri mereka.
@@ -1083,9 +1088,5 @@ Penggunaan cookies dalam pengembangan web tidak selalu aman secara default. Mesk
 | **Perlindungan Insufficient** | Jika cookies menyimpan informasi sensitif tanpa enkripsi atau tanpa penggunaan atribut keamanan seperti `HttpOnly` atau `Secure`, maka data tersebut lebih rentan terhadap kompromi.                                                              |
 
 ## <span id="tugas-4-12">Bonus: </span> ##
-
-
-
-
 
 </details>
