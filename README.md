@@ -1088,5 +1088,6 @@ Penggunaan cookies dalam pengembangan web tidak selalu aman secara default. Mesk
 | **Perlindungan Insufficient** | Jika cookies menyimpan informasi sensitif tanpa enkripsi atau tanpa penggunaan atribut keamanan seperti `HttpOnly` atau `Secure`, maka data tersebut lebih rentan terhadap kompromi.                                                              |
 
 ## <span id="tugas-4-12">Bonus: </span> ##
+![Bonus Tugas 4](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/bonus-tugas4.png)
 
 </details>
