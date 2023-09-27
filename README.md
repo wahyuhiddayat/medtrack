@@ -35,6 +35,7 @@
     - [Apa Perbedaan Antara `Autentikasi` dan `Otorisasi` dalam Konteks `Django`, dan Mengapa Keduanya Penting?](#tugas-4-9)
     - [Apa Itu Cookies Dalam Konteks Aplikasi Web, dan Bagaimana Django Menggunakan Cookies Untuk Mengelola Data Sesi Pengguna](#tugas-4-10)
     - [Apakah Penggunaan Cookies Aman Secara Default dalam Pengembangan Web, atau Apakah Ada Risiko Potensial yang Harus Diwaspadai?](#tugas-4-11)
+    - [Bonus](#tugas-4-12)
 
 ## Weekly Assignment ## 
 
@@ -1087,7 +1088,7 @@ Penggunaan cookies dalam pengembangan web tidak selalu aman secara default. Mesk
 | **Cookie Overwriting**       | Jika situs tidak dengan hati-hati menentukan nama cookies, situs lain dapat menulis ulang cookies tersebut, menggantikan nilai aslinya dengan nilai yang berpotensi berbahaya.                                                                    |
 | **Perlindungan Insufficient** | Jika cookies menyimpan informasi sensitif tanpa enkripsi atau tanpa penggunaan atribut keamanan seperti `HttpOnly` atau `Secure`, maka data tersebut lebih rentan terhadap kompromi.                                                              |
 
-## <span id="tugas-4-12">Bonus: </span> ##
+## <span id="tugas-4-12">Bonus</span> ##
 ![Bonus Tugas 4](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/bonus-tugas4.png)
 
 </details>
