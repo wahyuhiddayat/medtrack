@@ -3,7 +3,7 @@
 ### Nama    : Wahyu Hidayat ###
 ### NPM     : 2201233210 ###
 ### Kelas   : PBP A ###
-### [http://wahyu-hidayat22-tutorial.pbp.cs.ui.ac.id/](http://wahyu-hidayat22-tutorial.pbp.cs.ui.ac.id/) ###
+
 
 
 ## Section ## 
@@ -24,6 +24,14 @@
     - [Perbedaan Form `POST` dan `GET` dalam Django](#tugas-3-5)
     - [Perbedaan XML, JSON, dan HTML dalam Konteks Pengiriman Data](#tugas-3-6)
     - [Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern](#tugas-3-7)
+- [Tugas 4](#tugas-4)
+    - [Mengimplementasikan Fungsi Registrasi](#tugas-4-1)
+    - [Mengimplementasikan Fungsi Login](#tugas-4-2)
+    - [Mengimplementasikan Fungsi Logout](#tugas-4-3)
+    - [Membuat Pengguna untuk Mengakses Aplikasi Sebelumnya dengan Lancar](#tugas-4-4)
+    - [Membuat Dua Akun Pengguna dengan Masing-masing Tiga _Dummy Data_ Menggunakan `model` yang telah Dibuat pada Aplikasi Sebelumnya untuk Setiap Akun di Lokal](#tugas-4-5)
+    - [Menghubungkan model Item dengan User](#tugas-4-6)
+    - [Menampilkan Detail Informasi Pengguna yang Sedang _logged in_ Seperti `username` dan Menerapkan `cookies` Seperti _last login_ pada Halaman Utama Aplikasi](#tugas-4-7)
 
 ## Weekly Assignment ## 
 
@@ -394,7 +402,7 @@ MVVM adalah pola arsitektur, yang diciptakan oleh arsitek Microsoft Ken Cooper d
 - **View**: Bertanggung jawab untuk menampilkan elemen antarmuka pengguna, tetapi tidak memiliki logika bisnis yang signifikan.
 
 - **ViewModel**: Merupakan perantara antara Model dan View. Ini mengelola tampilan data dan berisi logika yang diperlukan untuk tampilan. ViewModel memungkinkan View untuk tetap terpisah dari Model dan mendorong penggunaan data yang lebih dekat dengan tampilan.
-<details>
+</details>
 
 
 <details>
@@ -724,6 +732,301 @@ urlpatterns = [
 
 8. Dukungan Browser
     - Hampir semua browser web modern mendukung JSON, yang membuatnya sangat cocok untuk pertukaran data antara browser dan server, seperti dalam pengembangan aplikasi web berbasis JavaScript.
-
 </details>
 
+
+<details>
+<summary>Tugas 4</summary>
+<br>
+
+# <span id="tugas-4">Tugas 4</span> #
+
+## <span id="tugas-4-1">Mengimplementasikan Fungsi Registrasi</span> ##
+1. Buka `views.py` yang ada pada subdirektori `main` dan buat fungsi dengan nama `register` yang menerima parameter `request`.
+    ```python
+    def register(request):
+        form = UserCreationForm()
+
+        if request.method == "POST":
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Your account has been successfully created!')
+                return redirect('main:login')
+        context = {'form':form}
+        return render(request, 'register.html', context)
+    ```
+2. Tambahkan _import_ `redirect`, `UserCreationForm`, dan `messages` pada bagian paling atas `views.py`.
+    ```python
+    from django.shortcuts import redirect
+    from django.contrib.auth.forms import UserCreationForm
+    from django.contrib import messages  
+    ```
+3. Buat berkas `register.html` pada pada folder `main/templates` lalu isi dengan kode berikut.
+    ```html
+    {% extends 'base.html' %}
+
+    {% block meta %}
+        <title>Register</title>
+    {% endblock meta %}
+
+    {% block content %}  
+
+    <div class = "login">
+        
+        <h1>Register</h1>  
+
+            <form method="POST" >  
+                {% csrf_token %}  
+                <table>  
+                    {{ form.as_table }}  
+                    <tr>  
+                        <td></td>
+                        <td><input type="submit" name="submit" value="Daftar"/></td>  
+                    </tr>  
+                </table>  
+            </form>
+
+        {% if messages %}  
+            <ul>   
+                {% for message in messages %}  
+                    <li>{{ message }}</li>  
+                    {% endfor %}  
+            </ul>   
+        {% endif %}
+
+    </div>  
+
+    {% endblock content %}
+    ```
+3. Buka `urls.py` pada direktori `main` lalu import fungsi `register` yang sudah dibuat.
+    ```python
+    from main.views import register
+    ```
+4. Tambahkan _path url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+    ```python
+    ...
+    path('register/', register, name='register'), 
+    ...
+    ```
+
+## <span id="tugas-4-2">Mengimplementasikan Fungsi Login</span> ##
+1. Buka `views.py` yang ada pada subdirektori `main` dan buat fungsi dengan nama `login_user` yang menerima parameter `request`.
+    ```python
+    def login_user(request):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('main:show_main')
+            else:
+                messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+        context = {}
+        return render(request, 'login.html', context)
+    ```
+2. Tambahkan import `authenticate` dan `login` pada bagian paling atas `views.py`.
+    ```python
+    from django.contrib.auth import authenticate, login
+    ```
+3. Buat berkas `login.html` pada folder `main/templates` lalu isi dengan kode berikut.
+    ```python
+    {% extends 'base.html' %}
+
+    {% block meta %}
+        <title>Login</title>
+    {% endblock meta %}
+
+    {% block content %}
+
+    <div class = "login">
+
+        <h1>Login</h1>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+                </tr>
+                        
+                <tr>
+                    <td>Password: </td>
+                    <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input class="btn login_btn" type="submit" value="Login"></td>
+                </tr>
+            </table>
+        </form>
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}     
+            
+        Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+
+    </div>
+
+    {% endblock content %}
+    ```
+4. Buka `urls.py` pada direktori `main` lalu import fungsi `login_user` yang sudah dibuat.
+    ```python
+    from main.views import login_user 
+    ```
+5. Tambahkan _path url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+    ```python
+    ...
+    path('login/', login_user, name='login'),
+    ...
+    ```
+
+## <span id="tugas-4-3">Mengimplementasikan Fungsi Logout</span> ##
+1. Buka `views.py` yang ada pada subdirektori `main` dan buat fungsi dengan nama `logout_user` yang menerima parameter `request`.
+    ```python
+    def logout_user(request):
+        logout(request)
+        return redirect('main:login')
+    ```
+2. Tambahkan import `logout` pada bagian paling atas `views.py`.
+    ```python
+    from django.contrib.auth import logout
+    ```
+3. Buat berkas `main.html` pada folder `main/templates` lalu tambahkan kode berikut setelah _hyperlink tag_ untuk _Add New Item_.
+    ```python
+        ...
+    <a href="{% url 'main:logout' %}">
+        <button>
+            Logout
+        </button>
+    </a>
+    ...
+    ```
+4. Buka `urls.py` pada direktori `main` lalu import fungsi `logout_user` yang sudah dibuat.
+    ```python
+    from main.views import logout_user
+    ```
+5. Tambahkan _path url_ ke dalam `urlpatterns` untuk mengakses fungsi yang sudah diimpor tadi.
+    ```python
+    ...
+    path('logout/', logout_user, name='logout'),
+    ...
+    ```
+
+## <span id="tugas-4-4">Membuat Pengguna untuk Mengakses Aplikasi Sebelumnya dengan Lancar</span> ##
+1. Buka `views.py` pada subdirektori `main` dan tambahkan import `login_required` pada bagian paling atas.
+    ```python
+    from django.contrib.auth.decorators import login_required
+    ```
+2. Tambahkan kode `@login_required(login_url='/login')` di atas fungsi `show_main` agar halaman `main` hanya dapat diakses oleh pengguna yang sudah _login_ (terautentikasi).
+    ```python
+    ...
+    @login_required(login_url='/login')
+    def show_main(request):
+    ...
+    ```
+
+## <span id="tugas-4-5">Membuat Dua Akun Pengguna dengan Masing-masing Tiga _Dummy Data_ Menggunakan `model` yang telah Dibuat pada Aplikasi Sebelumnya untuk Setiap Akun di Lokal</span> ##
+
+## <span id="tugas-4-6">Menghubungkan model `Item` dengan `User`</span> ##
+1. Buka `models.py` yang ada pada subdirektori `main` dan tambahkan kode berikut:
+    ```python
+    ...
+    from django.contrib.auth.models import User
+    ...
+    ```
+2. Pada model `Item` yang sudah dibuat, tambahkan potongan kode berikut:
+    ```python
+    class Item(models.Model):
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
+        ...
+    ```
+3. Buka `views.py` yang ada pada subdirektori `main`, dan ubah potongan kode pada fungsi `create_product` menjadi sebagai berikut:
+    ```python
+    def create_product(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        item = form.save(commit=False)
+        item.user = request.user
+        item.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_product.html", context)
+    ```
+4. Modifikasi fungsi `show_main` menjadi sebagai berikut.
+    ```python
+    def show_main(request):
+        items = Item.objects.filter(user=request.user)
+
+        context = {
+            'name': request.user.username,
+            ...
+    ...
+    ```
+5. Simpan semua perubahan, dan lakukan migrasi model dengan `python manage.py makemigrations`
+
+## <span id="tugas-4-7">Menampilkan Detail Informasi Pengguna yang Sedang _logged in_ Seperti `username` dan Menerapkan `cookies` Seperti _last login_ pada Halaman Utama Aplikasi</span> ##
+1. Buka `views.py` yang ada pada subdirektori `main` dan tambahkan import `HttpResponseRedirect`, `reverse`, dan `datetime`.
+    ```python
+    import datetime
+    from django.http import HttpResponseRedirect
+    from django.urls import reverse
+    ```
+2. Ubah fungsi `login_user` pada __blok__ `if user is not None` menjadi potongan kode berikut. 
+    ```python
+    ...
+    if user is not None:
+        login(request, user)
+        response = HttpResponseRedirect(reverse("main:show_main")) 
+        response.set_cookie('last_login', str(datetime.datetime.now()))
+        return response
+    ...
+    ```
+3. Pada fungsi `show_main`, tambahkan potongan kode `'last_login': request.COOKIES['last_login']` ke dalam variabel `context`.
+    ```python
+    context = {
+        'name': request.user.username,
+        'class': 'PBP A', 
+        'products': items,
+        'last_login': request.COOKIES['last_login'],
+    }
+    ```
+4. Ubah fungsi `logout_user` menjadi seperti potongan kode berikut.
+    ```python
+    def logout_user(request):
+        logout(request)
+        response = HttpResponseRedirect(reverse('main:login'))
+        response.delete_cookie('last_login')
+        return response
+    ```
+5. Buka berkas `main.html` dan tambahkan potongan kode berikut.
+    ```python
+    ...
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+    ...
+    ```
+
+## <span id="tugas-4-8">Apa itu `Django UserCreationForm` dan Kelebihan dan Kekurangannya?</span> ##
+
+
+## <span id="tugas-4-9">Apa Perbedaan Antara `Autentikasi` dan `Otorisasi` dalam Konteks `Django`, dan Mengapa Keduanya Penting?</span> ##
+
+## <span id="tugas-4-10">Apa itu Cookies dalam Konteks Aplikasi Web, dan Bagaimana Django Menggunakan Cookies untuk Mengelola Data Sesi Pengguna</span> ##
+
+## <span id="tugas-4-11">Apakah Penggunaan Cookies Aman Secara Default dalam Pengembangan Web, atau Apakah Ada Risiko Potensial yang Harus Diwaspadai?</span> ##
+
+
+
+
+
+</details>

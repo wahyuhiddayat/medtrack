@@ -35,9 +35,17 @@
 
     <br />
 
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+
     <a href="{% url 'main:create_product' %}">
         <button>
             Add New Item
+        </button>
+    </a>
+
+    <a href="{% url 'main:logout' %}">
+        <button>
+            Logout
         </button>
     </a>
 
