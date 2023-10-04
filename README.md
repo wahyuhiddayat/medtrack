@@ -1,41 +1,11 @@
 # 💊 Medtrack 🩺 #
 
-### Nama    : Wahyu Hidayat ###
-### NPM     : 2201233210 ###
-### Kelas   : PBP A ###
 
+Nama : Wahyu Hidayat <br>
+NPM : 2201233210 <br>
+Kelas : PBP A 
 
-## Section ## 
-- [Tugas 2](#tugas-2)
-    - [Membuat Sebuah Proyek Django Baru](#tugas-2-1) 
-    - [Membuat Aplikasi Dengan Nama `main` Pada Proyek](#tugas-2-2)
-    - [Melakukan Routing Pada Proyek Agar Dapat Menjalankan Aplikasi `main``](#tugas-2-3) 
-    - [Membuat Model Pada Aplikasi `main` Dengan Nama `Item` dan Memiliki Atribut](#tugas-2-4) 
-    - [_Deployment_ ke Adaptable](#tugas-2-5)
-    - [Bagan Django](#tugas-2-6)
-    - [Mengapa _Virtual Environment_ Digunakan](#tugas-2-7)
-    - [MVC, MVT, dan MVVM](#tugas-2-8)
-- [Tugas 3](#tugas-3)
-    - [Membuat Input `form` Untuk Menambahkan Objek Model](#tugas-3-1)
-    - [Menambahkan 5 Fungsi `views` Untuk Melihat Objek yang Sudah Ditambahkan Dalam Format HTML, XML, JSON, XML by _ID_, dan JSON by _ID_](#tugas-3-2)
-    - [Membuat Routing URL Untuk Masing-Masing `views` yang Telah Ditambahkan](#tugas-3-3)
-    - [Mengakses Kelima URL Menggunakan Postman](#tugas-3-4)
-    - [Perbedaan Form `POST` dan `GET` dalam Django](#tugas-3-5)
-    - [Perbedaan XML, JSON, dan HTML dalam Konteks Pengiriman Data](#tugas-3-6)
-    - [Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern](#tugas-3-7)
-- [Tugas 4](#tugas-4)
-    - [Mengimplementasikan Fungsi Registrasi](#tugas-4-1)
-    - [Mengimplementasikan Fungsi Login](#tugas-4-2)
-    - [Mengimplementasikan Fungsi Logout](#tugas-4-3)
-    - [Membuat Pengguna untuk Mengakses Aplikasi Sebelumnya dengan Lancar](#tugas-4-4)
-    - [Membuat Dua Akun Pengguna dengan Masing-masing Tiga _Dummy Data_ Menggunakan `model` yang telah Dibuat pada Aplikasi Sebelumnya untuk Setiap Akun di Lokal](#tugas-4-5)
-    - [Menghubungkan model Item dengan User](#tugas-4-6)
-    - [Menampilkan Detail Informasi Pengguna yang Sedang _logged in_ Seperti `username` dan Menerapkan `cookies` Seperti _last login_ pada Halaman Utama Aplikasi](#tugas-4-7)
-    - [Apa itu `Django UserCreationForm` dan Kelebihan dan Kekurangannya](#tugas-4-8)
-    - [Apa Perbedaan Antara `Autentikasi` dan `Otorisasi` dalam Konteks `Django`, dan Mengapa Keduanya Penting?](#tugas-4-9)
-    - [Apa Itu Cookies Dalam Konteks Aplikasi Web, dan Bagaimana Django Menggunakan Cookies Untuk Mengelola Data Sesi Pengguna](#tugas-4-10)
-    - [Apakah Penggunaan Cookies Aman Secara Default dalam Pengembangan Web, atau Apakah Ada Risiko Potensial yang Harus Diwaspadai?](#tugas-4-11)
-    - [Bonus](#tugas-4-12)
+## ##
 
 ## Weekly Assignment ## 
 
@@ -44,6 +14,17 @@
 <br>
 
 # <span id="tugas-2">Tugas 2</span> #
+
+## Contents ## 
+- [Membuat Sebuah Proyek Django Baru](#tugas-2-1) 
+- [Membuat Aplikasi Dengan Nama `main` Pada Proyek](#tugas-2-2)
+- [Melakukan Routing Pada Proyek Agar Dapat Menjalankan Aplikasi `main`](#tugas-2-3) 
+- [Membuat Model Pada Aplikasi `main` Dengan Nama `Item` dan Memiliki Atribut](#tugas-2-4) 
+- [_Deployment_ ke Adaptable](#tugas-2-5)
+- [Bagan Django](#tugas-2-6)
+- [Mengapa _Virtual Environment_ Digunakan](#tugas-2-7)
+- [MVC, MVT, dan MVVM](#tugas-2-8)
+
 ## <span id="tugas-2-1">Membuat Sebuah Proyek Django Baru</span> ##
 
 1. Buat direktori baru dengan nama `medtrack`.
@@ -414,6 +395,16 @@ MVVM adalah pola arsitektur, yang diciptakan oleh arsitek Microsoft Ken Cooper d
 <br>
 
 # <span id="tugas-3">Tugas 3</span> #
+
+## Contents ## 
+- [Membuat Input `form` Untuk Menambahkan Objek Model](#tugas-3-1)
+- [Menambahkan 5 Fungsi `views` Untuk Melihat Objek yang Sudah Ditambahkan Dalam Format HTML, XML, JSON, XML by _ID_, dan JSON by _ID_](#tugas-3-2)
+- [Membuat Routing URL Untuk Masing-Masing `views` yang Telah Ditambahkan](#tugas-3-3)
+- [Mengakses Kelima URL Menggunakan Postman](#tugas-3-4)
+- [Perbedaan Form `POST` dan `GET` dalam Django](#tugas-3-5)
+- [Perbedaan XML, JSON, dan HTML dalam Konteks Pengiriman Data](#tugas-3-6)
+- [Mengapa JSON Sering Digunakan dalam Pertukaran Data Antara Aplikasi Web Modern](#tugas-3-7)
+
 ## <span id="tugas-3-1">Membuat Input `form` Untuk Menambahkan Objek Model</span> ##
 
 1. Jalankan _virtual environment_ dan karena saya menggunakan MacOS maka saya menggunakan command berikut:
@@ -744,6 +735,20 @@ urlpatterns = [
 <br>
 
 # <span id="tugas-4">Tugas 4</span> #
+
+## Contents ##
+- [Mengimplementasikan Fungsi Registrasi](#tugas-4-1)
+- [Mengimplementasikan Fungsi Login](#tugas-4-2)
+- [Mengimplementasikan Fungsi Logout](#tugas-4-3)
+- [Membuat Pengguna untuk Mengakses Aplikasi Sebelumnya dengan Lancar](#tugas-4-4)
+- [Membuat Dua Akun Pengguna dengan Masing-masing Tiga _Dummy Data_ Menggunakan `model` yang telah Dibuat pada Aplikasi Sebelumnya untuk Setiap Akun di Lokal](#tugas-4-5)
+- [Menghubungkan model Item dengan User](#tugas-4-6)
+- [Menampilkan Detail Informasi Pengguna yang Sedang _logged in_ Seperti `username` dan Menerapkan `cookies` Seperti _last login_ pada Halaman Utama Aplikasi](#tugas-4-7)
+- [Apa itu `Django UserCreationForm` dan Kelebihan dan Kekurangannya](#tugas-4-8)
+- [Apa Perbedaan Antara `Autentikasi` dan `Otorisasi` dalam Konteks `Django`, dan Mengapa Keduanya Penting?](#tugas-4-9)
+- [Apa Itu Cookies Dalam Konteks Aplikasi Web, dan Bagaimana Django Menggunakan Cookies Untuk Mengelola Data Sesi Pengguna](#tugas-4-10)
+- [Apakah Penggunaan Cookies Aman Secara Default dalam Pengembangan Web, atau Apakah Ada Risiko Potensial yang Harus Diwaspadai?](#tugas-4-11)
+- [Bonus](#tugas-4-12)
 
 ## <span id="tugas-4-1">Mengimplementasikan Fungsi Registrasi</span> ##
 1. Buka `views.py` yang ada pada subdirektori `main` dan buat fungsi dengan nama `register` yang menerima parameter `request`.
@@ -1090,5 +1095,368 @@ Penggunaan cookies dalam pengembangan web tidak selalu aman secara default. Mesk
 
 ## <span id="tugas-4-12">Bonus</span> ##
 ![Bonus Tugas 4](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/bonus-tugas4.png)
+
+</details>
+
+<details>
+<summary>Tugas 5</summary>
+<br>
+
+# <span id="tugas-5">Tugas 5</span> #
+
+## Contents ## 
+- [Manfaat dan Penggunaan Element Selector](#tugas-5-1)
+- [HTML5 Tag](#tugas-5-2)
+- [Perbedaan _Margin_ dan _Padding_](#tugas-5-3)
+- [Perbedaan _Framework_ CSS Tailwind dan Bootstrap](#tugas-5-4)
+- [Menambahkan Bootstrap ke Aplikasi](#tugas-5-5) 
+- [Menambahkan Fitur _Edit_ pada Aplikasi](#tugas-5-6)
+- [Membuat Fungsi untuk Menghapus Data Produk](#tugas-5-7)
+- [Kustomisasi Halaman `login`](#tugas-5-8)
+
+
+## <span id="tugas-5-1">Manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya</span> ##
+Dalam CSS, _selector_ digunakan untuk memilih elemen-elemen HTML yang akan diberi style. 
+1. __Universal Selector__
+    - Manfaat: Memilih semua elemen di dalam sebuah dokumen.
+    - Kapan Menggunakannya: Ketika ingin memberikan style yang sama ke semua elemen.
+    - Contoh:
+        ```css
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ```
+2. __Type Selector (Element Selector)__
+    - Manfaat: Memilih semua elemen dengan jenis tertentu.
+    - Kapan Menggunakannya: Ketika ingin memberikan _style_ kepada semua elemen dengan jenis yang sama, misalnya semua elemen `<h1>` atau semua elemen `<p>`.
+    - Contoh:
+        ```css
+        h1 {
+            color: blue;
+        }
+        ```
+3. __Class Selector (.classname)__
+    - Manfaat: Memilih semua elemen yang memiliki atribut `class` tertentu.
+    - Kapan Menggunakannya: Ketika ingin memberikan style khusus ke sekelompok elemen yang memiliki atribut class yang sama.
+    - Contoh:
+        ```css
+        .highlight {
+            background-color: yellow;
+        }
+        ```
+4. __ID Selector (#idname)__
+    - Manfaat: Memilih elemen tunggal yang memiliki atribut `id` tertentu.
+    - Kapan Menggunakannya: Ketika ingin memberikan style khusus ke satu elemen saja yang memiliki atribut id tertentu.
+    - Contoh:
+        ```css
+        #header {
+            background-color: gray;
+        }
+        ```
+5. __Descendant Selector__
+    - Manfaat: Memilih elemen berdasarkan hubungan keturunannya.
+    - Kapan Menggunakannya: Ketika ingin memberikan style kepada elemen berdasarkan konteksnya dalam struktur HTML.
+    - Contoh:
+        ```css
+        article p {
+            color: red;
+            }
+        ```
+6. __Descendant Selector__
+    - Manfaat: Memilih elemen berdasarkan hubungan keturunannya.
+    - Kapan Menggunakannya: Ketika ingin memberikan style kepada elemen berdasarkan konteksnya dalam struktur HTML.
+    - Contoh:
+        ```css
+        article p {
+            color: red;
+            }
+        ```
+        > Hanya elemen `<p>` yang berada di dalam `<article>` yang akan mendapatkan style 👍.
+7. __Child Selector (parent > child)__
+    - Manfaat: Memilih semua elemen yang secara langsung merupakan anak dari elemen tertentu.
+    - Kapan Menggunakannya: Ketika ingin memilih elemen anak langsung dari sebuah elemen induk, tanpa memilih elemen yang bersarang lebih dalam (child).
+    - Contoh:
+        ```css
+        ul > li {
+            list-style-type: square;
+        }
+        ```
+        > Hanya `<li>` yang langsung berada di bawah `<ul>` (tanpa adanya `<ol>` atau `<ul>` lain di antaranya) yang akan terpilih 👍.
+7. __Attribute Selector__
+    - Manfaat: 
+        - `[attr]`: Memilih elemen dengan atribut tertentu
+        - `[attr=value]`: Memilih elemen dengan nilai atribut tertentu.
+    - Kapan Menggunakannya: Ketika ingin memberikan style berdasarkan keberadaan atau nilai dari atribut tertentu.
+    - Contoh:
+        ```css
+        input[type=text] {
+            border: 1px solid black;
+        }
+        ```
+8. __Pseudo-classes__
+    - Manfaat: Memilih elemen berdasarkan keadaan tertentu, bukan berdasarkan namanya, contohnya `:hover`, `:active`, `:first-child`, `:nth-child()`.
+    - Kapan Menggunakannya: Ketika ingin memberikan style berdasarkan keadaan atau urutan elemen.
+    - Contoh:
+        ```css
+        a:hover {
+            color: red;
+        }
+
+        p:first-child {
+            font-weight: bold;
+        }
+        ```
+9. __Pseudo-elements__
+    - Manfaat: Membuat seleksi pada bagian tertentu dari elemen, contohnya `::before`, `::after`, `::first-line`, `::first-letter`.
+    - Kapan Menggunakannya: Ketika ingin memodifikasi atau menambahkan konten ke bagian tertentu dari elemen.
+    - Contoh:
+        ```css
+        p::first-line {
+            font-weight: bold;
+        }
+
+        div::before {
+            content: "Note: ";
+            font-weight: bold;
+        }
+        ```
+10. __Grouping Selector__
+    - Manfaat: Menggabungkan selector untuk menerapkan style yang sama ke beberapa elemen.
+    - Kapan Menggunakannya: Ketika ingin menerapkan style yang sama ke lebih dari satu selector.
+    - Contoh:
+        ```css
+        h1, h2, h3 {
+            font-family: Arial, sans-serif;
+        }
+        ```
+11. __Combination Selectors__
+    - Manfaat: Mengkombinasikan beberapa selector untuk menciptakan seleksi yang lebih spesifik.
+    - Kapan Menggunakannya: Ketika ingin menargetkan elemen dengan lebih spesifik, Anda bisa menggunakan combination selectors.
+    - Contoh:
+        ```css
+        div + p {
+            margin-top: 20px;
+        }
+
+        h1 ~ h2 {
+            color: green;
+        }
+        ```
+
+## <span id="tugas-5-2">Jelaskan HTML5 Tag yang kamu ketahui.</span> ##
+- `<!DOCTYPE>`: Menentukan tipe dokumen
+- `<html>`: Mendefinisikan dokumen HTML
+- `<head>`: Berisi metadata/informasi untuk dokumen
+- `<title>`: Mendefinisikan judul untuk dokumen
+- `<body>`: Mendefinisikan isi dari dokumen
+- `<h1>` - `<h6>`: Mendefinisikan judul (heading) di HTML
+- `<p>`: Mendefinisikan paragraf
+- <`br>`: Memasukkan jeda baris tunggal
+- `<hr>`: Mendefinisikan perubahan tematik dalam konten
+- `<!--...-->`: Mendefinisikan sebuah komentar
+- `<abbr>`: Mendefinisikan sebuah akronim
+- `<b>`: Mendefinisikan teks tebal
+- `<sub>`: Mendefinisikan teks subskrip
+- `<sup>`: Mendefinisikan teks superskrip
+- `<form>`: Mendefinisikan sebuah form HTML untuk masukan pengguna
+- `<input>`: Mendefinisikan kontrol masukan
+- `<textarea>`: Mendefinisikan kontrol masukan multiline (area teks)
+- `<button>`: DMendefinisikan tombol yang dapat diklik
+- `<label>`: Mendefinisikan label untuk elemen `<input>`
+- `<img>`: Mendefinisikan sebuah gambar
+- `<audio>`: Mendefinisikan konten suara
+- `<video>`: Mendefinisikan video atau film
+- `<a>`: Mendefinisikan hyperlink
+- `<link>`: Mendefinisikan hubungan antara dokumen dengan sumber eksternal (sering digunakan untuk menghubungkan ke lembar gaya)
+- `<nav>`: Mendefinisikan tautan navigasi
+- `<ul>`: Mendefinisikan daftar tidak berurutan
+- `<ol>`: Mendefinisikan daftar berurutan
+- `<li>`: Mendefinisikan item daftar
+- `<table>`: Mendefinisikan tabel
+- `<th>`: Mendefinisikan sel header dalam tabel
+- `<tr>`: Mendefinisikan baris dalam tabel
+- `<td>`: Mendefinisikan sel dalam tabel
+- `<style>`: Mendefinisikan informasi gaya untuk dokumen
+- `<div>`: Mendefinisikan bagian dalam dokumen
+- `<span>`: Mendefinisikan bagian dalam dokumen
+- `<header>`: Mendefinisikan header untuk dokumen atau bagian
+- `<footer>`: Mendefinisikan footer untuk dokumen atau bagian
+- `<section>`: Mendefinisikan bagian dalam dokumen
+- `<head>`: Mendefinisikan informasi tentang dokumen
+- `<meta>`: Mendefinisikan metadata tentang dokumen HTML
+
+## <span id="tugas-5-3">Jelaskan perbedaan antara margin dan padding</span> ##
+Input image
+
+## Perbedaan antara Margin dan Padding
+
+| Aspek                | Margin                                                                                                                     | Padding                                                                                                                    |
+|----------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| **Lokasi**           | Merupakan ruang di luar batas (border) elemen. Mengatur jarak antara elemen dengan elemen lain di sekitarnya.               | Merupakan ruang di antara konten elemen dan batas (border) elemen tersebut. Mengatur jarak antara konten elemen dengan batas elemen.  |
+| **Pengaruh Terhadap Layout** | Dapat menyebabkan elemen saling menjauh atau mendekat, karena mempengaruhi ruang di luar elemen.                         | Tidak mempengaruhi jarak antar elemen, tetapi dapat mempengaruhi ukuran keseluruhan elemen jika tidak menggunakan `box-sizing: border-box`. |
+| **Warna Latar Belakang** | Tidak akan mewarisi warna latar belakang dari elemen. Margin selalu transparan.                                            | Mewarisi warna latar belakang dari elemen. Jika elemen memiliki background color, maka padding juga akan menampilkan warna tersebut.       |
+| **Collapsing**       | Dapat "collapse". Ini berarti jika dua elemen berurutan memiliki margin vertikal (atas dan bawah), margin terbesar dari keduanya yang akan digunakan, bukan jumlah keduanya. | Tidak pernah "collapse". Padding dari dua elemen yang berdekatan akan selalu ditambahkan bersama.                                    |
+
+
+## <span id="tugas-5-4">Perbedaan antara framework CSS Tailwind dan Bootstrap</span> ##
+Tailwind CSS dan Bootstrap adalah dua framework CSS populer yang sering digunakan oleh pengembang web untuk membangun antarmuka pengguna yang responsif dan menarik. 
+
+1. __Pendekatan Desain__
+    - __Tailwind CSS__
+        - Mengadopsi pendekatan _utility-first_, di mana kelas utilitas digunakan untuk membangun antarmuka secara bertahap.
+        - Menyediakan kebebasan total dalam desain tanpa keterikatan pada desain komponen spesifik.
+        - Cenderung membutuhkan kelas tambahan pada elemen untuk mendapatkan tampilan yang diharapkan.
+    - __Bootstrap__
+        - Memiliki desain yang sudah ditentukan, menyajikan komponen yang telah dirancang sebelumnya.
+        - Efisien untuk _prototyping_ dan membangun halaman dengan cepat tanpa perlu desain spesifik.
+        - Pendekatan berbasis komponen memungkinkan tampilan yang konsisten dengan upaya minimal.
+2. __Ukuran File__
+    - __Tailwind CSS__
+        - Secara standar memiliki ukuran file yang besar. Tetapi, dengan alat seperti PurgeCSS, ukuran file CSS bisa diperkecil berdasarkan kelas yang digunakan.
+    - __Bootstrap__
+        - Mencakup ukuran file yang lebih besar akibat beragam komponennya. Namun, Bootstrap menawarkan kemungkinan untuk mengurangi ukuran dengan memilih komponen spesifik saja.
+3. __Customisasi__
+    - __Tailwind CSS__
+        - Menawarkan fleksibilitas tinggi, memudahkan modifikasi konfigurasi sesuai kebutuhan desain.
+        - Pendekatan _utility-first_ memberikan kebebasan total dalam menciptakan desain yang unik.
+    - __Bootstrap__
+        - Bisa disesuaikan, namun terdapat batasan dalam mengubah desain dasar komponen yang sudah tersedia.
+        - Desain yang sangat khusus mungkin memerlukan penyesuaian intensif pada komponen atau kelas Bootstrap.
+
+__Kapan Menggunakan Bootstrap daripada Tailwind:__
+- Saat kebutuhan membangun prototipe dengan kecepatan tinggi.
+- Ketika diperlukan solusi komprehensif yang mencakup komponen desain beserta javascript.
+- Jika sudah terbiasa dengan Bootstrap dan mendapati pendekatannya sesuai.
+
+__Kapan Menggunakan Tailwind daripada Bootstrap:__
+- Saat keinginan ada pada kebebasan desain tanpa keterbatasan komponen spesifik.
+- Ketika pendekatan utility-first lebih disukai dan ada keinginan membangun tampilan dari dasar.
+- Saat tujuan adalah menciptakan tampilan yang unik, bukan berdasarkan template Bootstrap.
+
+## <span id="tugas-5-5">Menambahkan Bootstrap ke Aplikasi</span> ##
+1. Buka `base.html` pada direktori `templates` di _root project_ dan tambahkan kode berikut.
+    ```html
+    <head>
+        {% block meta %}
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% endblock meta %}
+    </head>
+    ```
+    Kode tersebut berfungsi agar halaman web dapat menyesuaikan ukuran dan perilaku perangkat _mobile_.
+2. Tambahkan `Bootstrap CSS` dan `JS`.
+    ```html
+    {% endblock meta %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+J4jsl5c9zdLKaUk5Ae5f5b1bw6AUn5f5v8FZJoMxm6f5cH1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    ```
+
+## <span id="tugas-5-6">Menambahkan Fitur _Edit_ pada Aplikasi</span> ##
+1. Buka `views.py` pada subdirektori `main` dan tambahkan kode berikut:
+    ```python
+    def edit_product(request, id):
+    # Get product berdasarkan ID
+    item = Item.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=item)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+    ```
+2. Buat berkas `edit_product.html` pada subdirektori `main/templates` dan isi dengan kode berikut:
+    ```html
+    {% extends 'base.html' %}
+
+    {% load static %}
+
+    {% block content %}
+
+    <h1>Edit Product</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Edit Product"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    {% endblock %}
+    ```
+3. _Import_ fungsi `edit_product` di `urls.py` pada direktori `main` dan juga tambahkan _path_ url ke dalam `urlpatterns`.
+    ```python
+    from main.views import edit_product
+
+    ...
+    path('edit-product/<int:id>', edit_product, name='edit_product'),
+    ...
+    ```
+4. Buka `main.html` pada subdirektori `main/templates` dan tambahkan kode berikut sejajar dengan elemen `<td>` terakhir untuk memunculkan _button_ _edit_
+    ```html
+    <td>
+        <a href="{% url 'main:edit_product' product.pk %}">
+            <button>
+                Edit
+            </button>
+        </a>
+    </td>
+    ```
+
+## <span id="tugas-5-7">Membuat Fungsi untuk Menghapus Data Produk</span> ##
+1. Tambahkan fungsi `delete_product` pada `views.py` di folder `main`
+    ```python
+    def delete_product(request, id):
+        # Get data berdasarkan ID
+        item = Item.objects.get(pk = id)
+        # Hapus data
+        item.delete()
+        # Kembali ke halaman awal
+        return HttpResponseRedirect(reverse('main:show_main'))
+    ```
+2. _Import_ fungsi `delete_product` di `urls.py` pada direktori `main` dan juga tambahkan _path_ url ke dalam `urlpatterns`.
+    ```python
+    from main.views import delete_product
+
+    ...
+    path('delete/<int:id>', delete_product, name='delete_product'),
+    ...
+    ```
+
+## <span id="tugas-5-8">Kustomisasi Halaman `login`</span> ##
+1. Membuat direktori `static` di _root project_ dan buat subdirektori `css`, buat file `login.css` di dalamnya.
+2. Hubungkan `login.css` tersebut dengan `login.html` yang ada pada direktori `templates` pada `main` dengan menambahkan kode berikut setelah kode `{% extends 'base.html' %}`.
+    ```html
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    ```
+3. Buka `main.html` pada `main/templates` dan modifikasi kode _button_ `edit` dan `delete`.
+    ```html
+    <td>
+        <a href="{% url 'main:edit_product' product.pk %}">
+            <button>
+                Edit
+            </button>
+        </a>
+        <a href="{% url 'main:delete_product' product.pk %}">
+            <button>
+                Delete
+            </button>
+        </a>
+    </td>
+    ```
 
 </details>

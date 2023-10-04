@@ -1,34 +1,96 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-    <title>Register</title>
+    <title>Register - Medtrack</title>
 {% endblock meta %}
 
-{% block content %}  
+{% block content %} 
 
-<div class = "login">
-    
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #ECECEC;
+    }
+
+    .login {
+        background: #FFFFFF;
+        border-radius: 8px;
+        padding: 30px;
+        width: 400px;
+        margin: 50px auto;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #103cbe;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    input[type="submit"] {
+        background-color: #103cbe;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        border-radius: 4px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0d2b8f;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        color: red;
+    }
+</style>
+
+<div class="login">
     <h1>Register</h1>  
 
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-            </table>  
-        </form>
+    <form method="POST">  
+        {% csrf_token %}  
+        <table>  
+            {{ form.as_table }}  
+            
+            <tr>  
+                <td></td>
+                <td><input type="submit" name="submit" value="Daftar"/></td>  
+            </tr>  
+        </table>  
+    </form>
 
     {% if messages %}  
         <ul>   
             {% for message in messages %}  
                 <li>{{ message }}</li>  
-                {% endfor %}  
+            {% endfor %}  
         </ul>   
     {% endif %}
-
 </div>  
 
 {% endblock content %}

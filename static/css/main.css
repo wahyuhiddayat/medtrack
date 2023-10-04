@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+}
+
+body {
+    padding: 2rem 5rem;
+    background-color: #fefefe; /* Slightly off-white background */
+    color: #444; /* Dark gray text */
+}
+
+h1 {
+    margin-bottom: 2rem;
+    color: #2c3e50; /* Navy blue color */
+    border-bottom: 3px solid #e74c3c; /* Red border */
+    display: inline-block;
+}
+
+h5 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    color: #7f8c8d; /* Gray color */
+    font-weight: 600; /* Semi-bold text */
+}
+
+p {
+    margin-bottom: 2rem;
+    color: #95a5a6; /* Light gray text */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ecf0f1; /* Light gray border */
+}
+
+th {
+    background-color: #34495e; /* Darker gray */
+    color: white;
+}
+
+tr:hover {
+    background-color: #f6f6f6;
+}
+
+button, .minus-button, .plus-button, .delete-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-right: 0.5rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    background-color: #3498db; /* Blue color */
+}
+
+.minus-button {
+    background-color: #e67e22; /* Orange color */
+}
+
+.plus-button {
+    background-color: #2ecc71; /* Green color */
+}
+
+.delete-button {
+    background-color: #c0392b; /* Dark red color */
+}
+
+button:hover, .minus-button:hover, .plus-button:hover, .delete-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

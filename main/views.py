@@ -1,6 +1,6 @@
 import datetime
+#from datetime import datetime
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from main.forms import ProductForm
 from django.urls import reverse
 from main.models import Item
@@ -23,7 +23,10 @@ def show_main(request):
         'name': request.user.username,
         'class': 'PBP A', 
         'products': items,
-        'last_login': request.COOKIES['last_login'],
+        #'last_login': request.COOKIES['last_login'],
+        'last_login': request.COOKIES.get('last_login', 'N/A'),
+
+        #'current_date': datetime.now().strftime('%A, %d-%m-%Y')
     }
 
     return render(request, "main.html", context)
@@ -76,6 +79,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             response = HttpResponseRedirect(reverse("main:show_main")) 
+            #response.set_cookie('last_login', str(datetime.now()))
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
@@ -108,3 +112,27 @@ def decrease_amount(request,id):
         data.amount = 0
     data.save()
     return redirect('main:show_main')
+
+def edit_product(request, id):
+    # Get product berdasarkan ID
+    item = Item.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=item)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    # Get data berdasarkan ID
+    item = Item.objects.get(pk = id)
+    # Hapus data
+    item.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
+

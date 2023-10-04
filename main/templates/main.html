@@ -1,168 +1,286 @@
 {% extends 'base.html' %}
 {% load static %}
+<link rel="stylesheet" href="{% static '/static/css/styles.css' %}">
 
-<link rel="stylesheet" href="{% static '/Users/wahyuhidayat/Documents/University/Computer Science/Semester 3/Pemrograman Berbasis Platform/medtrack/static/css/styles.css' %}">
+{% block meta %}
+    <title>Inventory - Medtrack</title>
+{% endblock meta %}
 
 {% block content %}
 
 <style>
-    /* styles.css */
-
-    /* Global CSS Reset */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        transition: all 0.3s ease;
-    }
-
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    
     body {
-        padding: 2rem 5rem;
-        background-color: #fefefe; /* Slightly off-white background */
-        color: #444; /* Dark gray text */
+        padding: 100px 50px 0 50px;
+        font-family: 'Poppins', sans-serif;
+        background: #ECECEC;
     }
 
     h1 {
-        margin-bottom: 2rem;
-        color: #2c3e50; /* Navy blue color */
-        border-bottom: 3px solid #e74c3c; /* Red border */
-        display: inline-block;
+        color: #103cbe;
+        font-weight: 600;
     }
 
     h5 {
-        margin-top: 2rem;
-        margin-bottom: 0.5rem;
-        color: #7f8c8d; /* Gray color */
-        font-weight: 600; /* Semi-bold text */
-    }
-
-    p {
-        margin-bottom: 2rem;
-        color: #95a5a6; /* Light gray text */
+        color: #555;
+        font-weight: 500;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
-        background-color: #fff;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
     }
 
     th, td {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid #ecf0f1; /* Light gray border */
+        padding: 8px 12px;
+        text-align: left;
+        text-align: center; /* Horizontally centers the text */
+        vertical-align: middle; /* Vertically centers the text */
     }
 
     th {
-        background-color: #34495e; /* Darker gray */
+        background-color: white;
+        color: gray;
+        
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .table-container {
+        background-color: white;
+        border-radius: 10px; /* Radius untuk pembulatan sudut */
+        padding: 20px;      /* Jarak antara tepi kotak dengan tabel */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan opsional untuk efek "melayang" */
+    }
+
+    .text-container {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-top: 100px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 800px;  /* Anda bisa menyesuaikan nilai ini sesuai kebutuhan */
+        min-height: 250px;
+        /*max-width: 500px; --> */
+        position: relative;
+        z-index: 1; /* Menjadikan text-container berada di lapisan paling atas */
+        overflow: hidden;
+    }
+
+    .featured-image {
+        position: absolute;
+        right: -90px; /* Menggeser gambar 50px ke kanan */
+        top: calc(50% - 30px); /* Menggeser gambar 30px ke atas dari tengahnya */
+        transform: translateY(-50%);
+        z-index: 0; /* Memastikan gambar berada di bawah text-container */
+    }
+
+
+    .featured-image img {
+        width: 700px; 
+        height: 300px;  
+        object-fit: cover;
+    }
+
+    /* Mengatur style untuk semua tombol */
+    .btn {
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 1px;
+        border: none;
+        transition: all 0.3s;
+    }
+
+    /* Style untuk tombol + dan - */
+    .btn-outline-primary {
+        color: #103cbe;
+        background-color: white;
+        border: 2px solid #103cbe;
+        padding: 5px 12px;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #103cbe;
         color: white;
     }
 
-    tr:hover {
-        background-color: #f6f6f6;
-    }
-
-    button, .minus-button, .plus-button, .delete-button {
-        padding: 0.5rem 1rem;
-        border: none;
+    /* Style untuk tombol Edit */
+    .btn-primary {
+        background-color: #103cbe;
+        color: white;
+        padding: 8px 15px;
         border-radius: 5px;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-        margin-right: 0.5rem;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
 
-    button {
-        background-color: #3498db; /* Blue color */
+    .btn-primary:hover {
+        background-color: #0d2b8f;
     }
 
-    .minus-button {
-        background-color: #e67e22; /* Orange color */
+    /* Style untuk tombol Delete */
+    .btn-danger {
+        background-color: #d9534f;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
     }
 
-    .plus-button {
-        background-color: #2ecc71; /* Green color */
+    .btn-danger:hover {
+        background-color: #c9302c;
     }
 
-    .delete-button {
-        background-color: #c0392b; /* Dark red color */
+    /* Navbar Styles */
+    .navbar {
+        background-color: #f8f9fa; /* Light background */
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1); /* Shadow beneath the navbar */
     }
 
-    button:hover, .minus-button:hover, .plus-button:hover, .delete-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    .navbar-brand, .nav-link, .navbar-text {
+        color: #343a40; /* Dark text color */
     }
 
-    a {
-        text-decoration: none;
-        color: inherit;
+    .navbar-brand img {
+        margin-right: 8px;
     }
 
+    .nav-link {
+        transition: color 0.3s;
+    }
 
+    .nav-link:hover {
+        color: #007bff;
+    }
+
+    .nav-item .dropdown-menu {
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-item {
+        transition: background-color 0.3s;
+    }
+
+    .dropdown-item:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .nav-item .navbar-text {
+        padding: 8px 15px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+    }
 
 </style>
 
-    <h1>Medtrack</h1>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
+        <!-- Brand Name -->
+        <div class="container-fluid">
 
-    <h5>Name:</h5>
-    <p>{{name}}</p>
+            <!-- Brand Name -->
+            <a class="navbar-brand m-4" href="#">Medtrack 🩺</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <!-- User & Last Login Session -->
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/static/images/user.png" alt="User Icon" style="height: 40px; border-radius: 50%;"> {{ user }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarUserDropdown">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'main:logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <small class="navbar-text text-dark ml-3">
+                            Last login: {{ last_login }}
+                        </small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <h5>Class:</h5>
-    <p>{{class}}</p>
+    <!-- Content -->
+    <div class="content pt-3">
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Amount</th>
-            <th>Modify Amount</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Date Added</th>
-            <th>Action</th>
-        </tr>
-    
-        {% for product in products %}
-            <tr>
-                <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.amount}}</td>
-                <td>
-                    <a href="{% url 'main:decrease_amount' product.id %}">
-                        <button class="minus-button">-</button>
-                    </a> 
-                    <a href="{% url 'main:increase_amount' product.id %}">
-                        <button class="plus-button">+</button>
-                    </a>
-                </td>
-                <td>{{product.category}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.date_added}}</td>
-                <td>
-                    <a href="{% url 'main:delete_data' product.id %}">
-                        <button class="delete-button">Delete</button>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-    
+        <div class="text-container">
+            <h1 class="mt-4  text-dark">Hello, {{ user }}</h1>
+            <div class="featured-image">
+                <img src="/static/images/lab.png" class="img-fluid">
+            </div>
+        </div>        
+
+        <div class="table-container">
+
+            <div class="button">
+                <a href="{% url 'main:create_product' %}" class="btn btn-primary rounded-pill mb-4">
+                    + Add Item
+                </a>
+            </div>
+            
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Amount / Modify</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+            
+                {% for product in products %}
+                    <tr>
+                        <td>{{product.name}}</td>
+                        <td>{{product.price}}</td>
+                        <td>
+                            <div class="d-flex flex-column align-items-center">
+                                <a href="{% url 'main:decrease_amount' product.id %}" class="btn btn-outline-primary mb-2">
+                                    -
+                                </a>
+                                {{product.amount}}
+                                <a href="{% url 'main:increase_amount' product.id %}" class="btn btn-outline-primary mt-2">
+                                    +
+                                </a>  
+                            </div>                          
+                        </td>                        
+                        <td>{{product.category}}</td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.date_added}}</td>
+                        <td>
+                            <a href="{% url 'main:edit_product' product.pk %}" class="btn btn-primary mr-2">
+                                Edit
+                            </a>
+                            <a href="{% url 'main:delete_product' product.pk %}" class="btn btn-danger">
+                                Delete
+                            </a>                            
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            
+        </div>
+    </div>
 
     <br />
 
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
-
-    <a href="{% url 'main:create_product' %}">
-        <button>
-            Add New Item
-        </button>
-    </a>
-
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a>
+    <!--{{ current_date }} -->
 
 {% endblock content %}

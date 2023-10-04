@@ -1,45 +1,92 @@
 {% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
 
 {% block meta %}
-    <title>Login</title>
+    <title>Login - Medtrack</title>
 {% endblock meta %}
 
 {% block content %}
 
-<div class = "login">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-    <h1>Login</h1>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #ECECEC;
+    }
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+    .box-area {
+        width: 930px;
+    }
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
+    .right-box {
+        padding: 40px 30px 40px 40px;
+    }
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+    ::placeholder {
+        font-size: 16px;
+    }
 
+    @media only screen and (max-width: 768px) {
+        .box-area {
+            margin: 0 10px;
+        }
+
+        .left-box {
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .right-box {
+            padding: 20px;
+        }
+    }
+    
+</style>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #103cbe;">
+            <div class="featured-image mb-3">
+                <img src="/static/images/medicines-delivery (1).png" class="img-fluid" style="width: 300px;">
+            </div>
+            <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Medtrack</p>
+            <small class="text-white text-wrap text-center" style="width: 17rem;font-family:'Courier New', Courier, monospace">Your digital health inventory solution.</small>
+        </div>
+        <div class="col-md-6 right-box">
+            <div class="row align-items-center">
+                <div class="header-text mb-4">
+                    <h2>Hello, Again</h2>
+                    <p>We are happy to have you back.</p>
+                </div>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="username" placeholder="Username">
+                    </div>
+                    <div class="input-group mb-5">
+                        <input type="password" class="form-control form-control-lg bg-light fs-6" name="password" placeholder="Password">
+                    </div>
+                    <div class="input-group mb-3">
+                        <button class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                    </div>
+                </form>
+                <div class="row">
+                    <small>Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %} 
 
 {% endblock content %}

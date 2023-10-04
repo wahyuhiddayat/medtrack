@@ -1,19 +1,159 @@
 {% extends 'base.html' %} 
+{% load static %}
+
+{% block meta %}
+    <title>Add Item - Medtrack</title>
+{% endblock meta %}
 
 {% block content %}
-<h1>Add New Item</h1>
 
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit" value="Add Item"/>
-            </td>
-        </tr>
-    </table>
-</form>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    
+    body {
+        padding: 100px 50px 0 50px;
+        font-family: 'Poppins', sans-serif;
+        background: #ECECEC;
+    }
+
+    h1 {
+        color: #103cbe;
+        font-weight: 600;
+    }
+
+    h5 {
+        color: #555;
+        font-weight: 500;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 8px 12px;
+        text-align: left;
+        text-align: center; /* Horizontally centers the text */
+        vertical-align: middle; /* Vertically centers the text */
+    }
+
+    th {
+        background-color: white;
+        color: gray;
+        
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    button, .minus-button, .plus-button {
+        background-color: #103cbe;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    button:hover, .minus-button:hover, .plus-button:hover {
+        background-color: #0d2b8f;
+    }
+
+    .minus-button, .plus-button {
+        padding: 5px 10px;
+    }
+
+    .table-container {
+        background-color: white;
+        border-radius: 10px; /* Radius untuk pembulatan sudut */
+        padding: 20px;      /* Jarak antara tepi kotak dengan tabel */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan opsional untuk efek "melayang" */
+    }
+
+    
+</style>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <!-- Brand Name -->
+    <a class="navbar-brand m-4" href="#">Medtrack 🩺</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+        <!-- Logout Button -->
+        <div class="nav-item">
+            <a href="{% url 'main:logout' %}" style="text-decoration: none; color: inherit;">
+                <img src="/static/images/logout.png" alt="Logout Icon" style="height: 20px; margin-right: 5px;">
+                Logout
+            </a>
+        </div> 
+        
+        <!-- User & Last Login Session -->
+        <div class="nav-item ml-3">
+            <div>
+                <a href="#" style="text-decoration: none; color: inherit; margin-left: 100px;">
+                    <img src="/static/images/user.png" alt="User Icon" style="height: 40px;">
+                    {{ user }}
+                </a>                    
+            </div>
+            <small class="navbar-text">
+                Last login {{ last_login }}
+            </small>
+        </div>
+    </div>
+</nav>
+
+
+<h1 class="mt-5 ms-4 mb-5">add new item</h1>
+
+<div class="container-md mt-5">
+    <div class="p-4 rounded shadow bg-white">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Name:</label>
+                <input type="text" class="form-control" name="{{ form.name.name }}" id="{{ form.name.id_for_label }}" value="{% if form.name.value %}{{ form.name.value }}{% endif %}" placeholder="Product Name">
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.amount.id_for_label }}" class="form-label">Amount:</label>
+                <input type="number" class="form-control" name="{{ form.amount.name }}" id="{{ form.amount.id_for_label }}" value="{% if form.amount.value %}{{ form.amount.value }}{% endif %}" placeholder="Quantity">
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.description.id_for_label }}" class="form-label">Description:</label>
+                <textarea class="form-control" name="{{ form.description.name }}" id="{{ form.description.id_for_label }}" placeholder="Detailed Description of the Product">{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.price.id_for_label }}" class="form-label">Price:</label>
+                <input type="number" class="form-control" name="{{ form.price.name }}" id="{{ form.price.id_for_label }}" value="{% if form.price.value %}{{ form.price.value }}{% endif %}" placeholder="Price in USD">
+            </div>
+            
+            <div class="mb-4">
+                <label for="{{ form.category.id_for_label }}" class="form-label">Category:</label>
+                <input type="text" class="form-control" name="{{ form.category.name }}" id="{{ form.category.id_for_label }}" value="{% if form.category.value %}{{ form.category.value }}{% endif %}" placeholder="Category of the Product">
+            </div>
+
+            <div class="d-grid">
+                <input type="submit" class="btn btn-primary btn-lg" value="Add Item">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--{{ current_date }} -->
 
 {% endblock %}
