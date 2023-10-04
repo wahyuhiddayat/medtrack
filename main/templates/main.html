@@ -40,8 +40,8 @@
     th, td {
         padding: 8px 12px;
         text-align: left;
-        text-align: center; /* Horizontally centers the text */
-        vertical-align: middle; /* Vertically centers the text */
+        text-align: center; 
+        vertical-align: middle; 
     }
 
     th {
@@ -56,9 +56,9 @@
 
     .table-container {
         background-color: white;
-        border-radius: 10px; /* Radius untuk pembulatan sudut */
-        padding: 20px;      /* Jarak antara tepi kotak dengan tabel */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan opsional untuk efek "melayang" */
+        border-radius: 10px; 
+        padding: 20px;      
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     }
 
     .text-container {
@@ -68,20 +68,20 @@
         margin-bottom: 20px;
         margin-top: 100px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 800px;  /* Anda bisa menyesuaikan nilai ini sesuai kebutuhan */
+        width: 800px;  
         min-height: 250px;
         /*max-width: 500px; --> */
         position: relative;
-        z-index: 1; /* Menjadikan text-container berada di lapisan paling atas */
+        z-index: 1; 
         overflow: hidden;
     }
 
     .featured-image {
         position: absolute;
-        right: -90px; /* Menggeser gambar 50px ke kanan */
-        top: calc(50% - 30px); /* Menggeser gambar 30px ke atas dari tengahnya */
+        right: -90px;
+        top: calc(50% - 30px); 
         transform: translateY(-50%);
-        z-index: 0; /* Memastikan gambar berada di bawah text-container */
+        z-index: 0; 
     }
 
 
@@ -138,12 +138,12 @@
 
     /* Navbar Styles */
     .navbar {
-        background-color: #f8f9fa; /* Light background */
-        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1); /* Shadow beneath the navbar */
+        background-color: #f8f9fa; 
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1); 
     }
 
     .navbar-brand, .nav-link, .navbar-text {
-        color: #343a40; /* Dark text color */
+        color: #343a40; 
     }
 
     .navbar-brand img {
@@ -221,7 +221,7 @@
     <div class="content pt-3">
 
         <div class="text-container">
-            <h1 class="mt-4  text-dark">Hello, {{ user }}</h1>
+            <h1 class="mt-4 ml-8 text-dark">Hello, {{ user }}</h1>
             <div class="featured-image">
                 <img src="/static/images/lab.png" class="img-fluid">
             </div>

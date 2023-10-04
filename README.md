@@ -1287,7 +1287,7 @@ Dalam CSS, _selector_ digunakan untuk memilih elemen-elemen HTML yang akan diber
 - `<meta>`: Mendefinisikan metadata tentang dokumen HTML
 
 ## <span id="tugas-5-3">Jelaskan perbedaan antara margin dan padding</span> ##
-Input image
+![Margin and Padding](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/margin%20vs%20padding.png)
 
 ## Perbedaan antara Margin dan Padding
 
@@ -1437,26 +1437,11 @@ __Kapan Menggunakan Tailwind daripada Bootstrap:__
     ```
 
 ## <span id="tugas-5-8">Kustomisasi Halaman `login`</span> ##
-1. Membuat direktori `static` di _root project_ dan buat subdirektori `css`, buat file `login.css` di dalamnya.
-2. Hubungkan `login.css` tersebut dengan `login.html` yang ada pada direktori `templates` pada `main` dengan menambahkan kode berikut setelah kode `{% extends 'base.html' %}`.
+Membuat `css` dengan cara menambahkan kode berikut pada `login.html` di direktori `main/templates`.
     ```html
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-    ```
-3. Buka `main.html` pada `main/templates` dan modifikasi kode _button_ `edit` dan `delete`.
-    ```html
-    <td>
-        <a href="{% url 'main:edit_product' product.pk %}">
-            <button>
-                Edit
-            </button>
-        </a>
-        <a href="{% url 'main:delete_product' product.pk %}">
-            <button>
-                Delete
-            </button>
-        </a>
-    </td>
+    <style>
+        (isi kode CSS)
+    </style>
     ```
 
 </details>
