@@ -1113,6 +1113,11 @@ Penggunaan cookies dalam pengembangan web tidak selalu aman secara default. Mesk
 - [Menambahkan Fitur _Edit_ pada Aplikasi](#tugas-5-6)
 - [Membuat Fungsi untuk Menghapus Data Produk](#tugas-5-7)
 - [Kustomisasi Halaman `login`](#tugas-5-8)
+- [Kustomisasi Halaman `register`](#tugas-5-9)
+- [Kustomisasi Halaman `main`](#tugas-5-10)
+- [Kustomisasi Halaman `add item`](#tugas-5-11)
+- [Kustomisasi Halaman `edit item`](#tugas-5-12)
+
 
 
 ## <span id="tugas-5-1">Manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya</span> ##
@@ -1443,5 +1448,48 @@ Membuat `css` dengan cara menambahkan kode berikut pada `login.html` di direktor
         (isi kode CSS)
     </style>
     ```
+
+![Login](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/login%20preview.png)
+
+## <span id="tugas-5-9">Kustomisasi Halaman `register`</span> ##
+Membuat `css` dengan cara menambahkan kode berikut pada `register.html` di direktori `main/templates`.
+    ```html
+    <style>
+        (isi kode CSS)
+    </style>
+    ```
+
+![Register](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/register%20preview.png)
+
+## <span id="tugas-5-10">Kustomisasi Halaman `main`</span> ##
+Membuat `css` dengan cara menambahkan kode berikut pada `main.html` di direktori `main/templates`.
+    ```html
+    <style>
+        (isi kode CSS)
+    </style>
+    ```
+
+![Main](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/main%20page%20preview.png)
+
+## <span id="tugas-5-11">Kustomisasi Halaman `add item`</span> ##
+Membuat `css` dengan cara menambahkan kode berikut pada `create_product.html` di direktori `main/templates`.
+    ```html
+    <style>
+        (isi kode CSS)
+    </style>
+    ```
+
+![Add New Item](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/add%20new%20item%20preview.png)
+
+## <span id="tugas-5-12">Kustomisasi Halaman `edit item`</span> ##
+Membuat `css` dengan cara menambahkan kode berikut pada `edit_product.html` di direktori `main/templates`.
+    ```html
+    <style>
+        (isi kode CSS)
+    </style>
+    ```
+
+![Edit Item](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/edit%20product%20preview.png)
+
 
 </details>
