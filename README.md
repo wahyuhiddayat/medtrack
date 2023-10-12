@@ -1490,6 +1490,69 @@ Membuat `css` dengan cara menambahkan kode berikut pada `edit_product.html` di d
     ```
 
 ![Edit Item](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/edit%20product%20preview.png)
+</details>
 
+<details>
+<summary>Tugas 6</summary>
+<br>
+
+# <span id="tugas-6">Tugas 6</span> #
+
+## Contents ## 
+- [Manfaat dan Penggunaan Element Selector](#tugas-5-1)
+
+## <span id="tugas-6-1">Menambahkan `cards`</span> ##
+Karena sebelumnya saya hanya menggunakan `table` untuk kustomisasi tampilan produk pada `main.html`, maka saya akan menggantinya dengan `cards`
+Before:
+
+After:
+
+## <span id="tugas-6-2">Membuat Fungsi untuk Mengembalikan Data JSON</span> ##
+Saya menambahkan fungsi baru pada `views.py` bernama `get_product_json` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`.
+
+```python
+def get_product_json(request):
+        product_item = Product.objects.all()
+        return HttpResponse(serializers.serialize('json', product_item))
+```
+Setelah itu saya mengimport fungsi tersebut pada `urls.py` dan menambahkan _path url_ di bagian `urlpatterns`.
+```python
+from main.views import get_product_json
+```
+
+```python
+path('get-product/', get_product_json, name='get_product_json'),
+```
+
+## <span id="tugas-6-3">Membuat Fungsi untuk Menambahkan Produk dengan AJAX</span> ##
+Saya menambahkan fungsi baru pada `views.py` bernama `add_product_ajax` dengan dekorator `@csrf_exempt` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`. Saya juga mengimport `from django.views.decorators.csrf import csrf_exempt` pada berkas tersebut. 
+
+```python
+...
+@csrf_exempt
+def add_product_ajax(request):
+if request.method == 'POST':
+    name = request.POST.get("name")
+    price = request.POST.get("price")
+    description = request.POST.get("description")
+    user = request.user
+
+    new_product = Product(name=name, price=price, description=description, user=user)
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)
+
+return HttpResponseNotFound()
+```
+
+Setelah itu saya melakukan routing untuk fungsi tersebut dengan mengimportnya lalu menambahkan _path url_ pada bagian `urlpatterns`
+
+```python
+from main.views import add_product_ajax
+```
+
+```python
+path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
+```
 
 </details>
