@@ -263,7 +263,7 @@
                         <label for="description" class="col-form-label">Description:</label>
                         <textarea class="form-control" id="description" name="description"></textarea>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="price" class="col-form-label">Price:</label>
                         <input type="number" class="form-control" id="price" name="price"></input>
@@ -272,8 +272,8 @@
                         <label for="category" class="col-form-label">Category:</label>
                         <input type="text" class="form-control" id="category" name="category"></input>
                     </div>
-                    
-                    
+
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -312,13 +312,13 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
             <th>Date Added</th>
             <th>Action</th>
         </tr>`
-        
+
         products.forEach((item) => {
             htmlString += `\n<tr>
             <td>${item.fields.name}</td>
             <td>${item.fields.price}</td>
             <td>
-                <span>${item.fields.amount}</span> 
+                <span>${item.fields.amount}</span>
                 <button class="btn btn-primary" onclick="changeAmount('increase', ${item.pk})">+</button>
                 <button class="btn btn-danger" onclick="changeAmount('decrease', ${item.pk})">-</button>
             </td>
@@ -329,9 +329,9 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
                 <button class="btn btn-success" onclick="editProduct(${item.pk})">Edit</button>
                 <button class="btn btn-danger" onclick="deleteProduct(${item.pk})">Delete</button>
             </td>
-        </tr>` 
+        </tr>`
         })
-        
+
         document.getElementById("product_table").innerHTML = htmlString
     }
 
@@ -339,7 +339,7 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
 
     async function changeAmount(action, productId) {
     let url = action === 'increase' ? increaseUrlTemplate.replace('123', productId) : decreaseUrlTemplate.replace('123', productId);
-    
+
     try {
         let response = await fetch(url, {
             method: 'POST',
@@ -406,7 +406,7 @@ async function deleteProduct(productId) {
     }
 }
 
-    
+
     function addProduct() {
         // Mencetak FormData ke konsol untuk debugging
         var formData = new FormData(document.querySelector('#form'));

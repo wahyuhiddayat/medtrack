@@ -169,7 +169,7 @@ def delete_product(request, id):
 
 # Mengambil semua produk dan mengembalikannya dalam format JSON
 def get_product_json(request):
-    product_item = Item.objects.all()
+    product_item = Item.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', product_item))
 
 # Membuat produk baru dari data yang dikirimkan melalui POST 
