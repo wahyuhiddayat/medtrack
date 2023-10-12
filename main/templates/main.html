@@ -78,7 +78,7 @@
 
     .featured-image {
         position: absolute;
-        right: -90px;
+        right: 0;
         top: calc(50% - 30px);
         transform: translateY(-50%);
         z-index: 0;
@@ -179,6 +179,10 @@
         border-radius: 15px;
     }
 
+    .card:hover {
+  background-color: #0065ca; /* Change the background color to the desired color on hover */
+}
+
 </style>
 
 <!-- Navbar -->
@@ -220,20 +224,21 @@
 <!-- Content -->
 <div class="content pt-3">
 
-    <div class="text-container">
+    <div class="text-container" style="width: 100%;">
         <h1 class="mt-4 ml-8 text-dark">Hello, {{ user }}</h1>
         <div class="featured-image">
-            <img src="/static/images/lab.png" class="img-fluid">
+            <img src="/static/images/Drawkit-Vector-Illustration-Medical-19.png" class="img-fluid">
         </div>
     </div>
 
-    <div class="table-container">
+    <!-- <div class="table-container"> -->
+    <div class="rounded p-4 bg-white" id="product_cards_container">
+        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item +</button>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="product_cards"></div>
+    </div>
 
-        <div class="button">
-            <a href="{% url 'main:create_product' %}" class="btn btn-primary rounded-pill mb-4">
-                + Add Item
-            </a>
-        </div>
+    
+        
 
         <table id="product_table"></table>
 
@@ -283,7 +288,7 @@
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+
 
 
 <br />
@@ -301,38 +306,35 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
     }
 
     async function refreshProducts() {
-        document.getElementById("product_table").innerHTML = ""
-        const products = await getProducts()
-        let htmlString = `<tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Amount / Modify</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Date Added</th>
-            <th>Action</th>
-        </tr>`
+        const products = await getProducts();
+        const cardContainer = document.getElementById("product_cards");
+        cardContainer.innerHTML = ""; // Clear the container first
 
         products.forEach((item) => {
-            htmlString += `\n<tr>
-            <td>${item.fields.name}</td>
-            <td>${item.fields.price}</td>
-            <td>
-                <span>${item.fields.amount}</span>
-                <button class="btn btn-primary" onclick="changeAmount('increase', ${item.pk})">+</button>
-                <button class="btn btn-danger" onclick="changeAmount('decrease', ${item.pk})">-</button>
-            </td>
-            <td>${item.fields.category}</td>
-            <td>${item.fields.description}</td>
-            <td>${item.fields.date_added}</td>
-            <td>
-                <button class="btn btn-success" onclick="editProduct(${item.pk})">Edit</button>
-                <button class="btn btn-danger" onclick="deleteProduct(${item.pk})">Delete</button>
-            </td>
-        </tr>`
-        })
-
-        document.getElementById("product_table").innerHTML = htmlString
+            const card = document.createElement("div");
+            card.classList.add("col");
+            card.innerHTML = `
+            <div class="card text-black"> 
+                <div class="card-body">
+                    <h5 class="card-title text-dark">${item.fields.name}</h5> 
+                    <p class="card-text">${item.fields.description}</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Price: $${item.fields.price}</li>
+                        <li class="list-group-item">Amount: ${item.fields.amount}</li>
+                        <li class="list-group-item">Category: ${item.fields.category}</li>
+                        <li class="list-group-item">Date Added: ${item.fields.date_added}</li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-primary" onclick="changeAmount('increase', ${item.pk})">+</button>
+                    <button class="btn btn-danger" onclick="changeAmount('decrease', ${item.pk})">-</button>
+                    <button class="btn btn-success" onclick="editProduct(${item.pk})">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteProduct(${item.pk})">Delete</button>
+                </div>
+            </div>
+            `;
+            cardContainer.appendChild(card);
+        });
     }
 
     refreshProducts()
