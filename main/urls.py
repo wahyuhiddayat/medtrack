@@ -1,5 +1,21 @@
 from django.urls import path
-from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id, register, login_user, logout_user, delete_data, increase_amount, decrease_amount, edit_product, delete_product
+from main.views import show_main
+from main.views import create_product
+from main.views import show_xml
+from main.views import show_json
+from main.views import show_xml_by_id
+from main.views import show_json_by_id
+from main.views import register
+from main.views import login_user
+from main.views import logout_user
+from main.views import delete_data
+from main.views import increase_amount
+from main.views import decrease_amount
+from main.views import edit_product
+from main.views import delete_product
+from main.views import get_product_json
+from main.views import add_product_ajax
+
 
 app_name = 'main'
 
@@ -14,8 +30,14 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
     path('delete/<int:id>', delete_data, name='delete_data'),
-    path('increase_amount/<int:id>', increase_amount, name='increase_amount'),
-    path('decrease_amount/<int:id>', decrease_amount, name='decrease_amount'),
-    path('edit-product/<int:id>', edit_product, name='edit_product'),
-    path('delete/<int:id>', delete_product, name='delete_product'),
+    #path('increase_amount/<int:id>', increase_amount, name='increase_amount'),
+    #path('decrease_amount/<int:id>', decrease_amount, name='decrease_amount'),
+    path('increase/<int:id>/', increase_amount, name='increase_amount'),
+    path('decrease/<int:id>/', decrease_amount, name='decrease_amount'),
+    #path('edit-product/<int:id>', edit_product, name='edit_product'),
+    path('edit/<int:id>/', edit_product, name='edit_product'),
+    #path('delete/<int:id>', delete_product, name='delete_product'),
+    path('delete/<int:id>/', delete_product, name='delete_product'),
+    path('get-product/', get_product_json, name='get_product_json'),
+    path('create-product-ajax/', add_product_ajax, name='add_product_ajax')
 ]

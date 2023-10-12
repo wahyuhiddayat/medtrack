@@ -10,5 +10,3 @@ class Item(models.Model):
     price = models.IntegerField()            
     date_added = models.DateField(auto_now_add=True)
     category = models.TextField()
-    
-    
