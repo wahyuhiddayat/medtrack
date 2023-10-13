@@ -5,6 +5,8 @@ Nama : Wahyu Hidayat <br>
 NPM : 2206081894 <br>
 Kelas : PBP A 
 
+[http://wahyu-hidayat22-tugas.pbp.cs.ui.ac.id](http://wahyu-hidayat22-tugas.pbp.cs.ui.ac.id)
+
 ## ##
 
 ## Weekly Assignment ## 
@@ -1625,6 +1627,8 @@ Dalam konteks proyek web modern, saya memilih Fetch API. Alasannya, Fetch lebih 
     - Menambahkan file dan folder yang diperlukan untuk _deployment_ yaitu `Procfile`, `.dockerignore`, `Dockerfile`, `.github`, `workflows`, `pbp-deploy.yml`, dan juga menambahkan beberapa _dependencies_ baru di `requirements.txt`.
     - Melakukan beberapa perubahan di `settings.py` yang diperlukan untuk _deployment_.
     - Menambahkan `repository secrets` pada GitHub untuk `DOKKU_APP_NAME`, `DOKKU_SERVER_IP`, `DOKKU_SSH_PRIVATE_KEY`.
+    - URL : [http://wahyu-hidayat22-tugas.pbp.cs.ui.ac.id](http://wahyu-hidayat22-tugas.pbp.cs.ui.ac.id)
+
 
 
 
