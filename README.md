@@ -1499,60 +1499,126 @@ Membuat `css` dengan cara menambahkan kode berikut pada `edit_product.html` di d
 # <span id="tugas-6">Tugas 6</span> #
 
 ## Contents ## 
-- [Manfaat dan Penggunaan Element Selector](#tugas-5-1)
+- [Jelaskan perbedaan antara asynchronous programming dengan synchronous programming](#tugas-6-1)
+- [Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini](#tugas-6-2)
+- [Jelaskan penerapan asynchronous programming pada AJAX](#tugas-6-3)
+- [Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan](#tugas-6-4)
+- [Implementasi](#tugas-6-5)
 
-## <span id="tugas-6-1">Menambahkan `cards`</span> ##
-Karena sebelumnya saya hanya menggunakan `table` untuk kustomisasi tampilan produk pada `main.html`, maka saya akan menggantinya dengan `cards`
-Before:
+## <span id="tugas-6-1">Jelaskan perbedaan antara asynchronous programming dengan synchronous programming</span> ##
 
-After:
+Pemrograman sinkronis (synchronous programming) dan pemrograman asinkronis (asynchronous programming) adalah dua pendekatan fundamental dalam pemrograman yang berbeda dalam cara mereka mengeksekusi kode dan menangani aktivitas yang berjalan dalam aplikasi.
 
-## <span id="tugas-6-2">Membuat Fungsi untuk Mengembalikan Data JSON</span> ##
-Saya menambahkan fungsi baru pada `views.py` bernama `get_product_json` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`.
+### Asynchronous Programming
+- __Alur Eksekusi__ : Dalam pemrograman sinkronis, kode dijalankan berurutan, satu per satu. Sebuah operasi atau tugas harus selesai sebelum operasi selanjutnya dapat dimulai. Ini berarti bahwa pada satu waktu, hanya ada satu bagian dari program yang sedang dieksekusi.
+- __Blokir (Blocking)__ : Operasi sinkronis blokir eksekusi; yaitu, mereka menghentikan alur eksekusi program hingga operasi selesai. Misalnya, saat program melakukan permintaan I/O (Input/Output), seperti membaca file atau mengunduh konten dari web, eksekusi program akan berhenti ("terblokir") hingga operasi I/O selesai.
+- __Kemudahan Pemahaman dan Debugging__ : Karena operasi dieksekusi secara berurutan, pemrograman sinkronis cenderung lebih mudah dipahami dan di-debug. Namun, pendekatan ini dapat menyebabkan aplikasi menjadi tidak responsif jika ada operasi yang membutuhkan waktu lama untuk selesai.
 
-```python
-def get_product_json(request):
-        product_item = Product.objects.all()
-        return HttpResponse(serializers.serialize('json', product_item))
-```
-Setelah itu saya mengimport fungsi tersebut pada `urls.py` dan menambahkan _path url_ di bagian `urlpatterns`.
-```python
-from main.views import get_product_json
-```
+### Synchronous Programming
+- __Alur Eksekusi__ : Dalam pemrograman asinkronis, kode dapat dieksekusi tanpa menunggu operasi sebelumnya selesai. Ini memungkinkan program untuk menangani tugas lain atau operasi tanpa diblokir oleh operasi yang memakan waktu lama.
+- __Non-Blokir (Non-Blocking)__ : Operasi asinkronis non-blokir, yang berarti bahwa mereka tidak menghentikan alur eksekusi program. Sebaliknya, operasi seperti I/O dapat diproses di latar belakang, sementara program melanjutkan eksekusi, dan kemudian program diberi tahu ketika operasi tersebut selesai.
+- __Kompleksitas__ : Walaupun pendekatan asinkronis dapat meningkatkan kinerja aplikasi, terutama yang bergantung pada I/O atau yang perlu menangani banyak permintaan secara bersamaan (seperti server web), kode asinkronis seringkali lebih kompleks dan bisa lebih sulit untuk dipahami dan di-debug.
+- __Pola dan Utilitas__ : Pemrograman asinkronis memerlukan penggunaan pola tertentu, seperti callback, promises, atau async/await (di JavaScript), serta penggunaan event loop dan task queue.
 
-```python
-path('get-product/', get_product_json, name='get_product_json'),
-```
+## <span id="tugas-6-2">Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini</span> ##
 
-## <span id="tugas-6-3">Membuat Fungsi untuk Menambahkan Produk dengan AJAX</span> ##
-Saya menambahkan fungsi baru pada `views.py` bernama `add_product_ajax` dengan dekorator `@csrf_exempt` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`. Saya juga mengimport `from django.views.decorators.csrf import csrf_exempt` pada berkas tersebut. 
+Paradigma event-driven programming adalah paradigma pemrograman di mana alur eksekusi program ditentukan oleh "events" atau kejadian. Kejadian ini biasanya dipicu oleh tindakan pengguna (seperti klik mouse, penekanan tombol, atau interaksi lainnya), input dari perangkat lain, atau bahkan pesan dari proses lain.
 
-```python
-...
-@csrf_exempt
-def add_product_ajax(request):
-if request.method == 'POST':
-    name = request.POST.get("name")
-    price = request.POST.get("price")
-    description = request.POST.get("description")
-    user = request.user
+Beberapa contoh penerapannya pada tugas ini adalah:
+- Fungsi refreshProducts menggunakan pendekatan ini dengan memuat ulang produk setelah mendapatkan data terbaru dari server. Ini tidak dipicu oleh event langsung, tapi dipanggil setelah event tertentu, seperti perubahan jumlah produk atau penghapusan produk.
 
-    new_product = Product(name=name, price=price, description=description, user=user)
-    new_product.save()
+- Fungsi changeAmount, editProduct, dan deleteProduct semua dipicu oleh aksi pengguna (klik tombol) dan menjalankan proses tertentu (meningkatkan/mengurangi jumlah, mengedit, menghapus) sebagai respons terhadap event tersebut.
 
-    return HttpResponse(b"CREATED", status=201)
+- Fungsi addProduct juga merupakan contoh event-driven programming, di mana ia dipicu oleh event klik tombol dan bertanggung jawab untuk menambahkan produk baru ke database tanpa perlu memuat ulang halaman web.
 
-return HttpResponseNotFound()
-```
+Semua fungsi ini dipicu oleh event (umumnya aksi klik oleh pengguna) dan merepresentasikan inti dari event-driven programming, di mana alur eksekusi program dikendalikan oleh event eksternal dan bukan alur sekuensial yang ditentukan.
 
-Setelah itu saya melakukan routing untuk fungsi tersebut dengan mengimportnya lalu menambahkan _path url_ pada bagian `urlpatterns`
+## <span id="tugas-6-3">Jelaskan penerapan asynchronous programming pada AJAX</span> ##
 
-```python
-from main.views import add_product_ajax
-```
+Asynchronous programming dalam konteks AJAX di JavaScript memungkinkan operasi I/O (Input/Output) seperti pengambilan data dari server untuk dijalankan di latar belakang, tanpa mengganggu atau menghentikan eksekusi skrip utama yang berjalan di browser. Ini membuat aplikasi web dapat tetap responsif dan tidak terhenti meskipun sedang menunggu data dari server.
 
-```python
-path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
-```
+Berikut ini adalah cara kerjanya:
+
+- __Pengiriman Request__ : Sebuah permintaan dikirim ke server menggunakan objek `XMLHttpRequest` atau fungsi `fetch` di JavaScript. Permintaan ini dikirim secara asinkron, yang berarti skrip dapat terus berjalan sementara menunggu respons.
+
+- __Menunggu Respons__ : Browser tidak menunggu respons dari AJAX call untuk terus menjalankan kode berikutnya. Pengguna masih dapat berinteraksi dengan aplikasi web sementara AJAX request sedang diproses.
+
+- __Event Handling__ : Ketika server merespons, sebuah "event" dihasilkan. Untuk menangani respons ini, callback function diatur saat membuat request asinkron. Fungsi ini akan dipanggil ketika respons diterima, memungkinkan skrip untuk kemudian memproses data respons (misalnya, memperbarui UI, menampilkan pesan kesalahan, dsb.).
+
+- __Promise dan Async/Await__ : JavaScript modern menggunakan konsep Promise dan async/await untuk menulis kode asinkron yang lebih bersih dan mudah dibaca. Sebuah `Promise` mewakili hasil akhir dari operasi asinkron. Kata kunci `async` digunakan untuk menandai fungsi sebagai asinkron, dan `await` digunakan di dalam fungsi `async` untuk menunggu hasil dari `Promise`.
+
+Dengan menggunakan AJAX secara asinkron, aplikasi web dapat memuat data, menyegarkan elemen, atau mengirim data ke server di latar belakang, meningkatkan kinerja keseluruhan dan pengalaman pengguna.
+
+## <span id="tugas-6-4">Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan</span> ##
+Fetch API dan jQuery AJAX adalah dua pendekatan yang berbeda untuk melakukan permintaan HTTP asinkron dalam pengembangan web.
+
+### Fetch API ###
+- __Modern dan Native__ : Fetch adalah antarmuka native yang datang bawaan dengan browser modern, tidak memerlukan library tambahan.
+- __Promise Based__ : Fetch mengembalikan Promise, yang menyediakan cara yang lebih kuat dan fleksibel untuk menangani respons dan kesalahan.
+- __Readable Stream__ : Fetch memberi akses ke ReadableStream dari respons, memungkinkan proses data chunk-by-chunk dan dapat mengelola memori dengan lebih efisien untuk aplikasi besar.
+- __Lebih Sederhana__ : Fetch cenderung lebih sederhana dan lebih mudah dibaca daripada pendekatan berbasis jQuery.
+- __Kurangnya Dukungan Lama__ : Fetch tidak didukung di Internet Explorer, dan di beberapa browser lama lainnya.
+
+### jQuery AJAX ###
+- __Kematangan dan Dukungan__ : jQuery telah ada untuk waktu yang lama, sehingga banyak pengembang sudah terbiasa dengannya dan memiliki komunitas besar serta dokumentasi yang luas.
+- __Kompatibilitas Browser__ : jQuery menawarkan kompatibilitas browser yang baik, termasuk dukungan untuk Internet Explorer yang lebih lama.
+- __Fitur Lengkap__ : jQuery menyediakan serangkaian fitur tingkat tinggi dan plugin, termasuk animasi, manipulasi DOM, dan lainnya selain AJAX.
+- __Ukuran Library__ : Menggunakan jQuery hanya untuk AJAX mungkin berlebihan, terutama untuk aplikasi yang tidak memerlukan fitur lain dari library.
+- __Callback vs Promises__ : jQuery lebih tua menggunakan callback, meski versi terbaru mendukung Promise.
+
+Dalam konteks proyek web modern, saya memilih Fetch API. Alasannya, Fetch lebih ringkas, tidak perlu _library_ tambahan, dan cara kerjanya yang berbasis Promise membuat kode lebih bersih dan gampang diurus. 
+
+
+## <span id="tugas-6-5">Implementasi</span> ##
+- Karena sebelumnya saya hanya menggunakan `table` untuk kustomisasi tampilan produk pada `main.html`, maka saya akan menggantinya dengan `cards`
+    Before:
+    ![Before](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/main%20page%20preview.png)
+
+    After:
+    ![After]()
+- Saya menambahkan fungsi baru pada `views.py` bernama `get_product_json` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`.
+    ```python
+    def get_product_json(request):
+            product_item = Product.objects.all()
+            return HttpResponse(serializers.serialize('json', product_item))
+    ```
+    Setelah itu saya mengimport fungsi tersebut pada `urls.py` dan menambahkan _path url_ di bagian `urlpatterns`.
+    ```python
+    from main.views import get_product_json
+    ```
+
+    ```python
+    path('get-product/', get_product_json, name='get_product_json'),
+    ```
+- Saya menambahkan fungsi baru pada `views.py` bernama `add_product_ajax` dengan dekorator `@csrf_exempt` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`. Saya juga mengimport `from django.views.decorators.csrf import csrf_exempt` pada berkas tersebut. 
+    ```python
+    ...
+    @csrf_exempt
+    def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_product = Product(name=name, price=price, description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+    ```
+- Setelah itu saya melakukan routing untuk fungsi tersebut dengan mengimportnya lalu menambahkan _path url_ pada bagian `urlpatterns`
+    ```python
+    from main.views import add_product_ajax
+    ```
+
+    ```python
+    path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
+    ```
+
+
+
+
 
 </details>
