@@ -70,7 +70,6 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 800px;
         min-height: 250px;
-        /*max-width: 500px; --> */
         position: relative;
         z-index: 1;
         overflow: hidden;
@@ -84,14 +83,12 @@
         z-index: 0;
     }
 
-
     .featured-image img {
         width: 700px;
         height: 300px;
         object-fit: cover;
     }
 
-    /* Mengatur style untuk semua tombol */
     .btn {
         font-family: 'Poppins', sans-serif;
         letter-spacing: 1px;
@@ -179,8 +176,17 @@
         border-radius: 15px;
     }
 
-    .card:hover {
-        background-color: #0065ca; 
+    .card:hover,
+    .card:hover ul.list-group li.list-group-item {
+        background-color: #c5c9ec;
+    }
+
+    .user-text {
+        color: #000000;
+    }
+
+    .user-text:hover {
+        color: #0045a6;
     }
 
 </style>
@@ -189,7 +195,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
     <div class="container"> 
         <!-- Brand Name -->
-        <a class="navbar-brand mr-3" href="#">Medtrack 🩺</a> 
+        <a class="navbar-brand mr-auto" href="#">Medtrack 🩺</a> 
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -200,10 +206,12 @@
             <ul class="navbar-nav ms-auto"> 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/static/images/user.png" alt="User Icon" style="height: 40px; border-radius: 50%;"> {{ user }}
+                        <img src="/static/images/user.png" alt="User Icon" style="height: 40px; border-radius: 50%;">
+                        <span class="user-text">{{ user }}</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarUserDropdown">
-                        <li><a class="dropdown-item" href="#">Last login: {{ last_login }}</a></li>
+                        <li><span class="dropdown-item">Last login</span></li>
+                        <li><span class="dropdown-item">{{ last_login }}</span></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item text-danger" href="{% url 'main:logout' %}">Logout</a></li>
                     </ul>
@@ -215,7 +223,7 @@
 
 
 <!-- Content -->
-<div class="content pt-3">
+<div class="content">
 
     <div class="text-container" style="width: 100%;">
         <h1 class="mt-4 ml-8 text-dark">Hello, {{ user }}</h1>
@@ -305,7 +313,7 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
                 <div class="card-body">
                     <h5 class="card-title text-dark">${item.fields.name}</h5> 
                     <p class="card-text">${item.fields.description}</p>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush my-list" id="my-list">
                         <li class="list-group-item">Price: Rp${item.fields.price}</li>
                         <li class="list-group-item">Amount: ${item.fields.amount}</li>
                         <li class="list-group-item">Category: ${item.fields.category}</li>
