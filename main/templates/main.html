@@ -306,7 +306,7 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
                     <h5 class="card-title text-dark">${item.fields.name}</h5> 
                     <p class="card-text">${item.fields.description}</p>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Price: $${item.fields.price}</li>
+                        <li class="list-group-item">Price: Rp${item.fields.price}</li>
                         <li class="list-group-item">Amount: ${item.fields.amount}</li>
                         <li class="list-group-item">Category: ${item.fields.category}</li>
                         <li class="list-group-item">Date Added: ${item.fields.date_added}</li>
@@ -334,16 +334,15 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Pastikan untuk memasukkan CSRF token jika diperlukan
-                'X-CSRFToken': getCookie('csrftoken')  // contoh fungsi untuk mendapatkan nilai dari cookie
+                'X-CSRFToken': getCookie('csrftoken') 
             },
-            body: JSON.stringify({})  // body bisa dikosongkan jika tidak ada data yang perlu dikirim
+            body: JSON.stringify({})  
         });
 
         if (response.ok) {
             let json = await response.json();
-            console.log(json.new_amount);  // atau update tampilan sesuai kebutuhan
-            refreshProducts();  // refresh daftar produk
+            console.log(json.new_amount);  
+            refreshProducts();  
         } else {
             console.error('Error:', response.statusText);
         }

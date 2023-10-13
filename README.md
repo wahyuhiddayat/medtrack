@@ -1617,6 +1617,16 @@ Dalam konteks proyek web modern, saya memilih Fetch API. Alasannya, Fetch lebih 
     path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
     ```
 
+- __Melakukan Deployment ke Paas PBP Fasilkom UI__ 
+    - Install environ
+        ```bash
+        pip install environ
+        ```
+    - Menambahkan file dan folder yang diperlukan untuk _deployment_ yaitu `Procfile`, `.dockerignore`, `Dockerfile`, `.github`, `workflows`, `pbp-deploy.yml`, dan juga menambahkan beberapa _dependencies_ baru di `requirements.txt`.
+    - Melakukan beberapa perubahan di `settings.py` yang diperlukan untuk _deployment_.
+    - Menambahkan `repository secrets` pada GitHub untuk `DOKKU_APP_NAME`, `DOKKU_SERVER_IP`, `DOKKU_SSH_PRIVATE_KEY`.
+
+
 
 
 
