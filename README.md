@@ -1577,7 +1577,7 @@ Dalam konteks proyek web modern, saya memilih Fetch API. Alasannya, Fetch lebih 
     ![Before](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/main%20page%20preview.png)
 
     After:
-    ![After]()
+    ![After](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/new%20main%20preview%20(using%20cards%20and%20ajax).png)
 - Saya menambahkan fungsi baru pada `views.py` bernama `get_product_json` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`.
     ```python
     def get_product_json(request):
