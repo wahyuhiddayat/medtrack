@@ -381,7 +381,6 @@ function editProduct(productId) {
 }
 
 async function deleteProduct(productId) {
-    if (confirm('Are you sure you want to delete this product?')) {
         try {
             let response = await fetch(`{% url 'main:delete_product' 123 %}`.replace('123', productId), {
                 method: 'DELETE', // Gunakan metode DELETE untuk permintaan penghapusan
@@ -399,7 +398,6 @@ async function deleteProduct(productId) {
         } catch (error) {
             console.error('Error:', error);
         }
-    }
 }
 
 

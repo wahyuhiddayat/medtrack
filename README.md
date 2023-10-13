@@ -1579,46 +1579,8 @@ Dalam konteks proyek web modern, saya memilih Fetch API. Alasannya, Fetch lebih 
     After:
     ![After](https://github.com/wahyuhiddayat/medtrack/blob/main/static/images/new%20main%20preview%20(using%20cards%20and%20ajax).png)
 - Saya menambahkan fungsi baru pada `views.py` bernama `get_product_json` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`.
-    ```python
-    def get_product_json(request):
-            product_item = Product.objects.all()
-            return HttpResponse(serializers.serialize('json', product_item))
-    ```
-    Setelah itu saya mengimport fungsi tersebut pada `urls.py` dan menambahkan _path url_ di bagian `urlpatterns`.
-    ```python
-    from main.views import get_product_json
-    ```
-
-    ```python
-    path('get-product/', get_product_json, name='get_product_json'),
-    ```
 - Saya menambahkan fungsi baru pada `views.py` bernama `add_product_ajax` dengan dekorator `@csrf_exempt` yang berfungsi untuk menampilkan data produk pada HTML dengan menggunakan `fetch`. Saya juga mengimport `from django.views.decorators.csrf import csrf_exempt` pada berkas tersebut. 
-    ```python
-    ...
-    @csrf_exempt
-    def add_product_ajax(request):
-    if request.method == 'POST':
-        name = request.POST.get("name")
-        price = request.POST.get("price")
-        description = request.POST.get("description")
-        user = request.user
-
-        new_product = Product(name=name, price=price, description=description, user=user)
-        new_product.save()
-
-        return HttpResponse(b"CREATED", status=201)
-
-    return HttpResponseNotFound()
-    ```
 - Setelah itu saya melakukan routing untuk fungsi tersebut dengan mengimportnya lalu menambahkan _path url_ pada bagian `urlpatterns`
-    ```python
-    from main.views import add_product_ajax
-    ```
-
-    ```python
-    path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
-    ```
-
 - __Melakukan Deployment ke Paas PBP Fasilkom UI__ 
     - Install environ
         ```bash
@@ -1628,11 +1590,5 @@ Dalam konteks proyek web modern, saya memilih Fetch API. Alasannya, Fetch lebih 
     - Melakukan beberapa perubahan di `settings.py` yang diperlukan untuk _deployment_.
     - Menambahkan `repository secrets` pada GitHub untuk `DOKKU_APP_NAME`, `DOKKU_SERVER_IP`, `DOKKU_SSH_PRIVATE_KEY`.
     - URL : [http://wahyu-hidayat22-tugas.pbp.cs.ui.ac.id](http://wahyu-hidayat22-tugas.pbp.cs.ui.ac.id)
-
-
-
-
-
-
 
 </details>
