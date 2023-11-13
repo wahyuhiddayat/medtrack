@@ -1,0 +1,123 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    
+    .navbar {
+        background-color: #f8f9fa;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .navbar-brand, .nav-link, .navbar-text {
+        color: #343a40;
+    }
+
+
+    .nav-link {
+        transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+        color: #007bff;
+    }
+
+    .dropdown-menu {
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-item {
+        transition: background-color 0.3s;
+    }
+
+    .navbar-text {
+        padding: 8px 15px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+    }
+
+    .user-text {
+        color: #000000;
+    }
+
+    .user-text:hover {
+        color: #0045a6;
+    }
+
+    .brand-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .brand-text {
+        margin-left: 8px;
+    }
+
+    .navbar .btn-group {
+        margin-left: auto;
+    }
+
+    .btn-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;  
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;  
+        justify-content: flex-end;
+        width: 100%;
+        gap: 10px;  
+    }
+
+    .dropdown-item:hover {
+        background-color: #28a745; 
+        color: #fff; 
+    }
+
+    .dropdown-item.logout {
+        color: #000000; 
+    }
+
+    .dropdown-item.logout:hover {
+        color: #fff; 
+        background-color: #dc3545; 
+        
+    }
+
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-md bg-light shadow-sm fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand text-primary-emphasis" href="{% url 'main:show_main' %}">medtrack</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'main:show_main' %}">Home</a>
+                    </li>
+                </ul>
+                
+
+                <div class="nav-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user }}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-md-end shadow">
+                            <li><span class="dropdown-item">Last login</span></li>
+                            <li><span class="dropdown-item">{{ last_login }}</span></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item logout" href="{% url 'main:logout' %}">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

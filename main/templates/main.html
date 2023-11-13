@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load static %}
-<link rel="stylesheet" href="{% static '/static/css/styles.css' %}">
 
 {% block meta %}
 <title>Inventory - Medtrack</title>
 {% endblock meta %}
 
 {% block content %}
+
+{% include "navbar.html" %}
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
@@ -15,6 +15,18 @@
         padding: 100px 50px 0 50px;
         font-family: 'Poppins', sans-serif;
         background: #ECECEC;
+        /* background-image: linear-gradient(to right, #ffffff, #deebff); */
+    }
+
+    /* Style warna highlight text */
+    ::selection {
+        background-color: #3498db; 
+        color: white; 
+    }
+
+    ::-moz-selection {
+        background-color: #3498db; 
+        color: white; 
     }
 
     h1 {
@@ -25,54 +37,6 @@
     h5 {
         color: #555;
         font-weight: 500;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    table, th, td {
-        border: 1px solid #ddd;
-    }
-
-    th, td {
-        padding: 8px 12px;
-        text-align: left;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    th {
-        background-color: white;
-        color: gray;
-
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .table-container {
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .text-container {
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 20px;
-        margin-top: 100px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 800px;
-        min-height: 250px;
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
     }
 
     .featured-image {
@@ -133,116 +97,39 @@
         background-color: #c9302c;
     }
 
-    /* Navbar Styles */
-    .navbar {
-        background-color: #f8f9fa;
-        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-brand, .nav-link, .navbar-text {
-        color: #343a40;
-    }
-
-    .navbar-brand img {
-        margin-right: 8px;
-    }
-
-    .nav-link {
-        transition: color 0.3s;
-    }
-
-    .nav-link:hover {
-        color: #007bff;
-    }
-
-    .nav-item .dropdown-menu {
-        border-radius: 5px;
+    /* Style untuk card */
+    .card {
         border: none;
-        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 15px;  
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #FFFFFF;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out; 
     }
 
-    .dropdown-item {
-        transition: background-color 0.3s;
-    }
-
-    .dropdown-item:hover {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .nav-item .navbar-text {
-        padding: 8px 15px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-    }
-
-    .card:hover,
-    .card:hover ul.list-group li.list-group-item {
-        background-color: #c5c9ec;
-    }
-
-    .user-text {
-        color: #000000;
-    }
-
-    .user-text:hover {
-        color: #0045a6;
+    .card:hover {
+        transform: translateY(-10px);  
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        background-color: #F9F9F9;  
     }
 
 </style>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
-    <div class="container"> 
-        <!-- Brand Name -->
-        <a class="navbar-brand mr-auto" href="#">Medtrack 🩺</a> 
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <!-- User & Last Login Session -->
-            <ul class="navbar-nav ms-auto"> 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/static/images/user.png" alt="User Icon" style="height: 40px; border-radius: 50%;">
-                        <span class="user-text">{{ user }}</span>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarUserDropdown">
-                        <li><span class="dropdown-item">Last login</span></li>
-                        <li><span class="dropdown-item">{{ last_login }}</span></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="{% url 'main:logout' %}">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
 <!-- Content -->
 <div class="content">
 
-    <div class="text-container" style="width: 100%;">
+    <div>
         <h1 class="mt-4 ml-8 text-dark">Hello, {{ user }}</h1>
-        <div class="featured-image">
-            <img src="/static/images/Drawkit-Vector-Illustration-Medical-19.png" class="img-fluid">
-        </div>
+        <h4 class="mt-4 ml-8 text-dark" id="total-items">You've saved {{ total_items_count }} items. Check out your collection!</h4>
     </div>
 
-    <div class="rounded p-4 bg-white" id="product_cards_container">
+    <div class="rounded p-4 bg-transparent" id="product_cards_container">
         <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item +</button>
         <div class="row row-cols-1 row-cols-md-3 g-4" id="product_cards"></div>
     </div>
-
     
-        
 
-        <table id="product_table"></table>
+    <table id="product_table"></table>
 
-    </div>
 </div>
 
 <!-- Modal -->
@@ -292,9 +179,8 @@
 
 <script>
 
-let increaseUrlTemplate = "{% url 'main:increase_amount' '123' %}";
-let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
-
+    let increaseUrlTemplate = "{% url 'main:increase_amount' '123' %}";
+    let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
 
     async function getProducts() {
         return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
@@ -303,6 +189,8 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
     async function refreshProducts() {
         const products = await getProducts();
         const cardContainer = document.getElementById("product_cards");
+        const products_count = products.length
+
         cardContainer.innerHTML = ""; // Clear the container first
 
         products.forEach((item) => {
@@ -330,76 +218,86 @@ let decreaseUrlTemplate = "{% url 'main:decrease_amount' '123' %}";
             `;
             cardContainer.appendChild(card);
         });
+
+        document.getElementById("total-items").innerHTML = `<p>You have saved ${products_count} items. Check out your collection!</p>`
     }
 
     refreshProducts()
 
     async function changeAmount(action, productId) {
-    let url = action === 'increase' ? increaseUrlTemplate.replace('123', productId) : decreaseUrlTemplate.replace('123', productId);
+        let url = action === 'increase' ? increaseUrlTemplate.replace('123', productId) : decreaseUrlTemplate.replace('123', productId);
 
-    try {
-        let response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken') 
-            },
-            body: JSON.stringify({})  
-        });
-
-        if (response.ok) {
-            let json = await response.json();
-            console.log(json.new_amount);  
-            refreshProducts();  
-        } else {
-            console.error('Error:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-// Fungsi untuk mendapatkan nilai cookie (misalnya CSRF token)
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            // Apakah string cookie ini memiliki format "name=value"?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-function editProduct(productId) {
-    window.location.href = `{% url 'main:edit_product' 123 %}`.replace('123', productId);
-}
-
-async function deleteProduct(productId) {
         try {
-            let response = await fetch(`{% url 'main:delete_product' 123 %}`.replace('123', productId), {
-                method: 'DELETE', // Gunakan metode DELETE untuk permintaan penghapusan
+            let response = await fetch(url, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')
-                }
+                    'X-CSRFToken': getCookie('csrftoken') 
+                },
+                body: JSON.stringify({})  
             });
 
             if (response.ok) {
-                refreshProducts();
+                let json = await response.json();
+                console.log(json.new_amount);  
+                refreshProducts();  
             } else {
                 console.error('Error:', response.statusText);
             }
         } catch (error) {
             console.error('Error:', error);
         }
-}
+    }
 
+    // Fungsi untuk mendapatkan nilai cookie (misalnya CSRF token)
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                // Apakah string cookie ini memiliki format "name=value"?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function editProduct(productId) {
+        window.location.href = `{% url 'main:edit_product' 123 %}`.replace('123', productId);
+    }
+
+    async function deleteProduct(productId) {
+            try {
+                let response = await fetch(`{% url 'main:delete_product' 123 %}`.replace('123', productId), {
+                    method: 'DELETE', // Gunakan metode DELETE untuk permintaan penghapusan
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                });
+
+                if (response.ok) {
+                    refreshProducts();
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+    }
+
+    function updateTotalItems(total) {
+        let element = document.getElementById('total-items');
+        if (element) {
+            element.innerText = "You've saved " + total + " items. Check out your collection!";
+        } else {
+            console.error("Element 'total-items' not found.");
+        }
+    }
 
     function addProduct() {
         // Mencetak FormData ke konsol untuk debugging
@@ -428,8 +326,6 @@ async function deleteProduct(productId) {
     }
 
     document.getElementById("button_add").onclick = addProduct;  // mengaitkan fungsi ini dengan klik tombol
-
-
 
 </script>
 

@@ -1,7 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-<link rel="stylesheet" href="{% static 'css/login.css' %}" />
 
 {% block meta %}
     <title>Login - Medtrack</title>
@@ -14,79 +11,62 @@
 
     body {
         font-family: 'Poppins', sans-serif;
-        background: #ECECEC;
+        background-color: #f0f2f5; 
     }
 
-    .box-area {
-        width: 930px;
+    .bubble {
+        background-color: rgba(255, 255, 255, 0.9); 
+        backdrop-filter: blur(3px); 
     }
 
-    .right-box {
-        padding: 40px 30px 40px 40px;
+    /* Style warna highlight text */
+    ::selection {
+        background-color: #3498db; 
+        color: white; 
     }
 
-    ::placeholder {
-        font-size: 16px;
-    }
-
-    @media only screen and (max-width: 768px) {
-        .box-area {
-            margin: 0 10px;
-        }
-
-        .left-box {
-            height: 100px;
-            overflow: hidden;
-        }
-
-        .right-box {
-            padding: 20px;
-        }
+    ::-moz-selection {
+        background-color: #3498db; 
+        color: white; 
     }
     
 </style>
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="row border rounded-5 p-3 bg-white shadow box-area">
-        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #103cbe;">
-            <div class="featured-image mb-3">
-                <img src="/static/images/Drawkit-Vector-Illustration-Medical-19.png" class="img-fluid" style="width: 300px;">
-            </div>
-            <p class="text-white fs-2" style="font-family: 'Poppins'; font-weight: 600;">Medtrack</p>
-            <small class="text-white text-wrap text-center" style="width: 17rem;font-family:'Poppins'">Your digital health inventory solution.</small>
-        </div>
-        <div class="col-md-6 right-box">
-            <div class="row align-items-center">
-                <div class="header-text mb-4">
-                    <h2>Hello, Again</h2>
-                    <p>We are happy to have you back.</p>
+<div class="d-flex vh-100 justify-content-center align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="text-center mb-4">
+                    <h2>Medtrack</h2>
                 </div>
-                <form method="POST" action="">
-                    {% csrf_token %}
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="username" placeholder="Username">
-                    </div>
-                    <div class="input-group mb-5">
-                        <input type="password" class="form-control form-control-lg bg-light fs-6" name="password" placeholder="Password">
-                    </div>
-                    <div class="input-group mb-3">
-                        <button class="btn btn-lg btn-primary w-100 fs-6">Login</button>
-                    </div>
-                </form>
-                <div class="row">
+
+                <div class="bubble p-4 bg-light rounded shadow">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" class="form-control form-control-lg" name="username" placeholder="Username">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control form-control-lg" name="password" placeholder="Password">
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-lg btn-primary w-100">Login</button>
+                        </div>
+                    </form>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
                     <small>Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a></small>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-{% if messages %}
-    <ul>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %} 
 
 {% endblock content %}

@@ -1,7 +1,6 @@
 import datetime
 import json
 from django.forms import ValidationError
-#from datetime import datetime
 from django.shortcuts import get_object_or_404, render
 from main.forms import ProductForm
 from django.urls import reverse
@@ -20,22 +19,20 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 from django.views.decorators.http import require_http_methods
 
-
-# Fungsi ini memerlukan pengguna untuk login dan mengembalikan halaman utama dengan konteks yang berisi informasi pengguna dan produk.
 @login_required(login_url='/login')
 def show_main(request):
-    items = Item.objects.filter(user=request.user)  # Mengambil semua item yang berhubungan dengan pengguna yang saat ini login
+    items = Item.objects.filter(user=request.user)  
+    total_items_count = items.count()  
 
-    # Membuat konteks dengan informasi pengguna dan item yang akan dikirim ke template
     context = {
-        'name': request.user.username,  # Username pengguna
-        'class': 'PBP A',  # Kelas pengguna (ini statis, mungkin Anda ingin mengambilnya dari profil pengguna)
-        'products': items,  # Produk-produk yang dimiliki oleh pengguna
-        'last_login': request.COOKIES.get('last_login', 'N/A'),  # Waktu login terakhir pengguna, diambil dari cookie
+        'name': request.user.username,  
+        'class': 'PBP A',  
+        'products': items,  
+        'total_items_count': total_items_count,  
     }
-
-    # Mengembalikan HTTP response dengan template yang di-render dan konteks yang sudah dibuat
+    
     return render(request, "main.html", context)
+
 
 # Fungsi ini menangani pembuatan produk baru. Jika form valid, produk akan disimpan ke database.
 def create_product(request):
@@ -195,9 +192,18 @@ def add_product_ajax(request):
             new_product.full_clean()  # validasi model
             new_product.save()
 
-            return HttpResponse(b"CREATED", status=201)
+            total_items = Item.objects.filter(user=user).count() 
+            print("Total items:", total_items)
+            return JsonResponse({"message": "Product created successfully!", "total_items": total_items}, status=201)
+
         except ValidationError as e:
             # Tangani kesalahan validasi
             return JsonResponse({"error": e.message_dict}, status=400)
     else:
         return HttpResponseNotFound()
+
+# Menampilkan hasil searching untuk suatu item
+def search_item(request):
+    query = request.GET.get('q')
+    results = Item.objects.filter(name__contains=query)
+    return render(request, 'search_results.html', {'results': results})
