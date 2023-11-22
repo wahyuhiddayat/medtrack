@@ -16,6 +16,7 @@ from main.views import delete_product
 from main.views import get_product_json
 from main.views import add_product_ajax
 from main.views import search_item
+from main.views import create_product_flutter
 
 app_name = 'main'
 
@@ -37,4 +38,5 @@ urlpatterns = [
     path('get-product/', get_product_json, name='get_product_json'),
     path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
     path('search/', search_item, name='search_item'),
+    path('create-flutter/', create_product_flutter, name='create_product_flutter'),
 ]
