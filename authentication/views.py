@@ -28,4 +28,22 @@ def login(request):
     else:
         return JsonResponse({
             "status": False,
-            "message": "Login gagal, periksa 
+            "message": "Login gagal, periksa kembali email atau kata sandi."
+        }, status=401)
+
+@csrf_exempt
+def logout(request):
+    username = request.user.username
+
+    try:
+        auth_logout(request)
+        return JsonResponse({
+            "username": username,
+            "status": True,
+            "message": "Logout berhasil!"
+        }, status=200)
+    except:
+        return JsonResponse({
+        "status": False,
+        "message": "Logout gagal."
+        }, status=401)
