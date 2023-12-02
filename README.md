@@ -426,7 +426,7 @@ MVVM adalah pola arsitektur, yang diciptakan oleh arsitek Microsoft Ken Cooper d
     ```python
     urlpatterns = [
     path('admin/', admin.site.urls),
-    path('main/', include('main.urls')),
+    path('', show_main, name='show_main'),
     ]
     ```
 
