@@ -426,7 +426,7 @@ MVVM adalah pola arsitektur, yang diciptakan oleh arsitek Microsoft Ken Cooper d
     ```python
     urlpatterns = [
     path('admin/', admin.site.urls),
-    path('main/', include('main.urls')),
+    path('', show_main, name='show_main'),
     ]
     ```
 
@@ -488,7 +488,7 @@ MVVM adalah pola arsitektur, yang diciptakan oleh arsitek Microsoft Ken Cooper d
     class ProductForm(ModelForm):
         class Meta:
             model = Item
-            fields = ["name", "price", "description"]
+            fields = ["name", "amount", "description", "price", "category"]
     ```
 8. Buka berkas `views.py` yang ada pada folder main dan tambahkan beberapa import berikut pada bagian paling atas.
     ```python
